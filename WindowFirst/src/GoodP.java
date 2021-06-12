@@ -27,11 +27,21 @@ public class GoodP {
 	JFrame diaframe;
 	JPanel No;
 	 dialogFram dwindow;
+	 
+	public void finish(int num) {
+		
+	}
+	//加入的是第 th 個，因此在加入前ArrayList的長度是 th-1
 	
-	public JPanel getGoodP() {
+	public JPanel getGoodP(int th) {
 		Good=new JPanel(); 
 		Good.setBackground(new Color(255, 255, 204));
-		Good.setBounds(14, 10, 394, 143);
+		
+		if(th%2==1) {
+		Good.setBounds(14, 10, 394, 143);}
+		else {
+			Good.setBounds(14, 172, 394, 143);
+		}
 		
 		Good.setLayout(null);
 		
@@ -211,7 +221,7 @@ public class GoodP {
 JFrame j=new JFrame();
 j.setVisible(true);
 j.setLayout(null);
-j.add(gg.getGoodP());
+j.add(gg.getGoodP(22));
 	}
 
 }

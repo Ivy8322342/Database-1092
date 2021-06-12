@@ -19,6 +19,9 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -97,7 +100,29 @@ searchframe.getContentPane().setLayout(null);
 		//
 		
 		GoodP p=new GoodP();
-		MainPanel.add(p.getGoodP());
+	MainPanel.add(p.getGoodP(25));
+		
+		//MyTask
+	
+//		Timer timer=new Timer();
+//		  TimerTask  task = new TimerTask (){
+//			  int ii=1;
+//		         public void run() {
+//		        	if (ii<3)
+//		        		MainPanel.add(p.getGoodP(ii));
+//		        	ii++;
+//		        	}
+//		        	 
+//		        	 
+//		        	 
+//		        	 
+//		        
+//		        };
+//		      
+//				timer.schedule(task,5000L,5000L);
+//			
+		  
+	      
 		
 		
 		

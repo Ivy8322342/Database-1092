@@ -48,11 +48,50 @@ public class ReserveFrame {
 	JPanel No;
 	JFrame QRframe;
 	 dialogFram dwindow;
+	 int curPage=1;
+	 int maxPage;
 	
-	
-	public void add() {
-	GoodArray.add(new GoodP().getGoodP());
+	//與產品呈現有關的方法
+	public void addGood() {
+		int curSize=GoodArray.size();
+	GoodArray.add(new GoodP().getGoodP(curSize+1));
 	}
+	//完成取貨會馬上在該頁面呈現變動:
+	public void finishGood(ArrayList<JPanel>GoodArray,int index ,int num) {
+		GoodArray.remove(index);
+	}
+	
+	//剛開始的時候是呈現第一頁
+	public void showP(ArrayList<JPanel> GoodArray,int curPage) {
+		
+		if(GoodArray.size()>0) {
+		maxPage=(int)((GoodArray.size()+1)/2);
+		GoodArray.get(curPage*2-1).setVisible(true);
+		GoodArray.get(curPage*2-2).setVisible(true);
+		}else {
+			maxPage=1;
+			
+			
+		}
+		
+		
+	}
+	public void nextPage() {
+		if(curPage<maxPage) {
+		curPage++;
+		showP(this.GoodArray,curPage);
+		}
+	}
+	
+	public void lastPage() {
+		if(curPage>1) {
+			curPage--;
+			showP(this.GoodArray,curPage);
+			
+		}
+	}
+	
+	
 	
 	
 	
