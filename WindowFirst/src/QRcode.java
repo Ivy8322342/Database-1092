@@ -70,7 +70,7 @@ public class QRcode {
 		QRframe.getContentPane().setLayout(null);
 		
 		JPanel NavPanel = new JPanel();
-		NavPanel.setBackground(new Color(0, 0, 153));
+		NavPanel.setBackground(new Color(153,107,31));
 		NavPanel.setBounds(0, 0, 436, 54);
 		QRframe.getContentPane().add(NavPanel);
 		
@@ -112,8 +112,8 @@ public class QRcode {
 		SearchLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SearchFrame swindow=new SearchFrame();
-				swindow.searchframe.setVisible(true);
+				Search swindow=new Search();
+				swindow.frame.setVisible(true);
 				QRframe.setVisible(false);
 			}
 		});
@@ -139,8 +139,8 @@ public class QRcode {
 		JLabel BagLabel = new JLabel("New label");
 		BagLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				PackageFrame pwindow=new PackageFrame();
-				pwindow.packageframe.setVisible(true);
+				Prebuy pwindow=new Prebuy();
+				pwindow.frame.setVisible(true);
 				QRframe.setVisible(false);
 			}
 		});
@@ -218,13 +218,14 @@ public class QRcode {
 			}
 		});
 		CanclePanel.setBorder(UIManager.getBorder("RadioButton.border"));
-		CanclePanel.setBackground(new Color(255, 20, 147));
+		CanclePanel.setBackground(new Color(153, 107, 31));
 		CanclePanel.setBounds(154, 329, 101, 41);
 		MainPanel.add(CanclePanel);
 		CanclePanel.setLayout(null);
 		
 		JLabel CancleLabel = new JLabel("返回");
 		CancleLabel.setFont(new Font("微軟正黑體", Font.BOLD, 18));
+		CancleLabel.setForeground(Color.WHITE);
 		CancleLabel.setBounds(28, 13, 75, 15);
 		CanclePanel.add(CancleLabel);
 		

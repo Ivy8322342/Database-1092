@@ -46,7 +46,7 @@ public class ReserveFrame {
 	JFrame reserveframe;
 	JFrame diaframe;
 	JPanel No;
-	JPanel panel_3;
+	JPanel ContainP;
 	JFrame QRframe;
 	 dialogFram dwindow;
 	 int curPage=1;
@@ -150,7 +150,7 @@ public class ReserveFrame {
 	
 		
 		JPanel NavPanel = new JPanel();
-		NavPanel.setBackground(new Color(0, 0, 153));
+		NavPanel.setBackground(new Color(153, 107, 31));
 		NavPanel.setBounds(0, 0, 436, 54);
 		reserveframe.getContentPane().add(NavPanel);
 		
@@ -166,14 +166,14 @@ public class ReserveFrame {
 		
 		
 		JPanel MainPanel = new JPanel();
-		MainPanel.setBackground(new Color(255, 255, 255));
+		MainPanel.setBackground(new Color(250, 245,172,98));
 		MainPanel.setBounds(0, 52, 436, 461);
 		reserveframe.getContentPane().add(MainPanel);
 		MainPanel.setLayout(null);
 		
 		JPanel FooterPanel = new JPanel();
 		FooterPanel.setBounds(0, 380, 436, 81);
-		FooterPanel.setBackground(new Color(224, 255, 255));
+		FooterPanel.setBackground(new Color(153, 107, 31));
 		MainPanel.add(FooterPanel);
 		FooterPanel.setLayout(null);
 		
@@ -197,8 +197,8 @@ public class ReserveFrame {
 		SearchLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SearchFrame swindow=new SearchFrame();
-				swindow.searchframe.setVisible(true);
+				Search swindow=new Search();
+				swindow.frame.setVisible(true);
 				reserveframe.setVisible(false);
 			}
 		});
@@ -224,8 +224,8 @@ public class ReserveFrame {
 		JLabel BagLabel = new JLabel("New label");
 		BagLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				PackageFrame pwindow=new PackageFrame();
-				pwindow.packageframe.setVisible(true);
+				Prebuy pwindow=new Prebuy();
+				pwindow.frame.setVisible(true);
 				reserveframe.setVisible(false);
 			}
 		});
@@ -236,21 +236,21 @@ public class ReserveFrame {
 		scrollPane.setBounds(0, 0, 436, 376);
 		MainPanel.add(scrollPane);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		scrollPane.setViewportView(panel);
-		panel.setLayout(null);
+		JPanel OutContantP = new JPanel();
+		OutContantP.setBackground(new Color(250,245,172 ,98));
+		scrollPane.setViewportView(OutContantP);
+		OutContantP.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 0, 0));
 		panel_2.setBounds(229, 336, 106, 28);
-		panel.add(panel_2);
+		OutContantP.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(0, 0, 0));
 		panel_2_1.setBounds(84, 336, 106, 28);
-		panel.add(panel_2_1);
+		OutContantP.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
 		
@@ -258,12 +258,12 @@ public class ReserveFrame {
 		
 		
 		
-		 panel_3 = new JPanel();
-		panel_3.setAutoscrolls(true);
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(10, 1, 414, 325);
-		panel.add(panel_3);
-		panel_3.setLayout(null);
+		 ContainP = new JPanel();
+		ContainP.setAutoscrolls(true);
+		ContainP.setBackground(new Color(250,245,172 ,98));
+		ContainP.setBounds(10, 1, 414, 325);
+		OutContantP.add(ContainP);
+		ContainP.setLayout(null);
 		
 		//add to Spanel
 	showPage();

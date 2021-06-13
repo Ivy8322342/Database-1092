@@ -57,7 +57,7 @@ public class demo_window {
 		Accountframe.getContentPane().setLayout(null);
 		
 		JPanel NavPanel = new JPanel();
-		NavPanel.setBackground(new Color(0, 0, 153));
+		NavPanel.setBackground(new Color(153,107 ,31));
 		NavPanel.setBounds(0, 0, 436, 54);
 		Accountframe.getContentPane().add(NavPanel);
 		NavPanel.setLayout(null);
@@ -66,11 +66,11 @@ public class demo_window {
 		pageLabel.setBounds(158, 10, 106, 35);
 		pageLabel.setForeground(new Color(255, 255, 255));
 		NavPanel.add(pageLabel);
-		pageLabel.setBackground(new Color(255, 255, 255));
+		pageLabel.setBackground(new Color(153, 107, 31));
 		pageLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26));
 		
 		JPanel MainPanel = new JPanel();
-		MainPanel.setBackground(new Color(255, 255, 255));
+		MainPanel.setBackground(new Color(250, 245,172,98));
 		MainPanel.setBounds(0, 52, 436, 461);
 		Accountframe.getContentPane().add(MainPanel);
 		MainPanel.setLayout(null);
@@ -81,7 +81,7 @@ public class demo_window {
 		MainPanel.add(UserImg);
 		
 		JPanel FooterPanel = new JPanel();
-		FooterPanel.setBackground(new Color(224, 255, 255));
+		FooterPanel.setBackground(new Color(153,107 ,31));
 		FooterPanel.setBounds(0, 380, 436, 81);
 		MainPanel.add(FooterPanel);
 		FooterPanel.setLayout(null);
@@ -108,8 +108,8 @@ public class demo_window {
 		SearchLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SearchFrame swindow=new SearchFrame();
-				swindow.searchframe.setVisible(true);
+				 Search swindow=new  Search();
+				swindow.frame.setVisible(true);
 				Accountframe.setVisible(false);
 			}
 		});
@@ -125,8 +125,8 @@ public class demo_window {
 		JLabel BagLabel = new JLabel("New label");
 		BagLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				PackageFrame pwindow=new PackageFrame();
-				pwindow.packageframe.setVisible(true);
+				Prebuy pwindow=new Prebuy();
+				pwindow.frame.setVisible(true);
 				Accountframe.setVisible(false);
 			}
 		});
