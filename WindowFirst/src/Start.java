@@ -53,7 +53,7 @@ public class Start {
   waitLabel.setBounds(136, 334, 163, 36);
   frame.getContentPane().add(waitLabel);
   
-  Icon LogoIcon=new ImageIcon(Start.class.getResource("/img/logo.jpg"));
+  Icon LogoIcon=new ImageIcon(Start.class.getResource("/img/logo.png"));
   Icon gifIcon =new ImageIcon(demo_window.class.getResource("/img/load.gif"));
   
 //  Icon gifIcon = new ImageIcon(ClassLoader.getSystemResource("/img/load.gif"));
