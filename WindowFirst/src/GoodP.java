@@ -37,6 +37,7 @@ public class GoodP extends JPanel {
 		this.GoodName=GoodName;
 		this.StoreName=StoreName;
 		this.Quantity=Quantity;
+
 	 }
 	 //完成取貨
 	public void finish() {
@@ -78,12 +79,12 @@ public class GoodP extends JPanel {
 		
 		JLabel GoodsLabel = new JLabel(""+GoodName);
 		GoodsLabel.setFont(new Font("微軟正黑體", Font.BOLD, 16));
-		GoodsLabel.setBounds(258, 25, 95, 15);
+		GoodsLabel.setBounds(258, 25, 126, 15);
 		Good.add(GoodsLabel);
 		
 		JLabel Storelabel = new JLabel(""+StoreName);
 		Storelabel.setFont(new Font("微軟正黑體", Font.BOLD, 18));
-		Storelabel.setBounds(258, 49, 95, 15);
+		Storelabel.setBounds(258, 49, 126, 15);
 		Good.add(Storelabel);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("\u5269\u9918\u6642\u9593:");
@@ -110,7 +111,7 @@ public class GoodP extends JPanel {
         };
 		timer.schedule(task,1000L,1000L);
 
-		 QRobj = new QRcode(Quantity,QRcode);
+		 QRobj = new QRcode(StoreName,Quantity,QRcode);
 		
 		
 		

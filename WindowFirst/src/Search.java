@@ -242,7 +242,7 @@ public class Search {
 
 	GridBagConstraints gc;
 	JLabel label = new JLabel("Label 2");
-	label.setIcon(new ImageIcon(Search.class.getResource("/img/me1.jpg")));
+	label.setIcon(new ImageIcon(Search.class.getResource("/img/§Ú.jpg")));
 	label.setLocation(86, -232);
 	label.setBackground(Color.CYAN);
 	label.setSize(326, 274);
