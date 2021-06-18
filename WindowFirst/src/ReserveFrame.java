@@ -1,6 +1,5 @@
 import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -51,12 +50,12 @@ public class ReserveFrame {
 	 dialogFram dwindow;
 	 int curPage=1;
 	 int curSize;
-	 int maxPage;
+	 int maxPage=1;
 	
 	//與產品呈現有關的方法
 	public void addGood() {
 		
-	GoodArray.add(new GoodP().getGoodP());
+	GoodArray.add(new GoodP("鮪魚飯糰","興政","鮪魚飯糰.jpg","鮪魚飯糰.png",5).getGoodP());
 	int curSize=GoodArray.size();
 	rePosition();
 	}
@@ -243,15 +242,27 @@ public class ReserveFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 0, 0));
-		panel_2.setBounds(229, 336, 106, 28);
+		panel_2.setBounds(275, 336, 106, 28);
 		OutContantP.add(panel_2);
 		panel_2.setLayout(null);
 		
+		JLabel lblNewLabel = new JLabel("\u4E0B\u4E00\u9801");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		lblNewLabel.setBounds(22, 0, 75, 25);
+		panel_2.add(lblNewLabel);
+		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBackground(new Color(0, 0, 0));
-		panel_2_1.setBounds(84, 336, 106, 28);
+		panel_2_1.setBounds(70, 336, 106, 28);
 		OutContantP.add(panel_2_1);
 		panel_2_1.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("\u4E0A\u4E00\u9801");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(21, 0, 75, 25);
+		panel_2_1.add(lblNewLabel_1);
 		
 		
 		
@@ -264,6 +275,11 @@ public class ReserveFrame {
 		ContainP.setBounds(10, 1, 414, 325);
 		OutContantP.add(ContainP);
 		ContainP.setLayout(null);
+		
+		JLabel PageLabel = new JLabel(curPage+"/"+maxPage);
+		PageLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		PageLabel.setBounds(202, 335, 62, 28);
+		OutContantP.add(PageLabel);
 		
 		//add to Spanel
 	showPage();

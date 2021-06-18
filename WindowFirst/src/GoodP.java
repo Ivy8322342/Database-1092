@@ -17,38 +17,53 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 
-public class GoodP {
+public class GoodP extends JPanel {
 
 	JPanel Good;
 	Timer timer;
 	QRcode QRobj;
+	String Pic;
 	String StoreName;
-	String GoodNum;
+	String QRcode;//因為QRcode 跟商品ID 一樣
+	String GoodName;
 	JFrame diaframe;
 	JPanel No;
+	int Quantity;
 	 dialogFram dwindow;
 	 
+	 public GoodP(String GoodName,String StoreName,String Pic,String QRcode,int Quantity){
+		 this.Pic=Pic;
+		this.QRcode=QRcode;
+		this.GoodName=GoodName;
+		this.StoreName=StoreName;
+		this.Quantity=Quantity;
+	 }
 	 //完成取貨
-	public void finish(int num) {
+	public void finish() {
 		
 	}
 	//加入的是第 th 個，因此在加入前ArrayList的長度是 th-1
 	
+	
+
+	
+	
 	public JPanel getGoodP() {
+		
 		Good=new JPanel(); 
 		Good.setBackground(new Color(255, 255, 204));
 		
 //		if(th%2==1) {
-//		Good.setBounds(14, 10, 394, 143);}
+	Good.setBounds(14, 10, 394, 143);
 //		else {
 //			Good.setBounds(14, 172, 394, 143);
 //		}
 		
 		Good.setLayout(null);
 		
-		JLabel IconLabel = new JLabel("New label");
-		IconLabel.setIcon(new ImageIcon(ReserveFrame.class.getResource("/img/bag1.png")));
-		IconLabel.setBounds(10, 10, 146, 123);
+		JLabel IconLabel = new JLabel("");
+		IconLabel.setIcon(new ImageIcon(ReserveFrame.class.getResource("img/"+Pic)));
+		IconLabel.setBounds(10, 10, 134, 123);
 		Good.add(IconLabel);
 		
 		JLabel lblNewLabel_2 = new JLabel("\u54C1\u540D: ");
@@ -61,12 +76,12 @@ public class GoodP {
 		lblNewLabel_3.setBounds(166, 49, 82, 15);
 		Good.add(lblNewLabel_3);
 		
-		JLabel GoodsLabel = new JLabel("\u4E2D\u71B1\u7F8E\u5F0F");
+		JLabel GoodsLabel = new JLabel(""+GoodName);
 		GoodsLabel.setFont(new Font("微軟正黑體", Font.BOLD, 16));
 		GoodsLabel.setBounds(258, 25, 95, 15);
 		Good.add(GoodsLabel);
 		
-		JLabel Storelabel = new JLabel("\u653F\u5927");
+		JLabel Storelabel = new JLabel(""+StoreName);
 		Storelabel.setFont(new Font("微軟正黑體", Font.BOLD, 18));
 		Storelabel.setBounds(258, 49, 95, 15);
 		Good.add(Storelabel);
@@ -95,7 +110,7 @@ public class GoodP {
         };
 		timer.schedule(task,1000L,1000L);
 
-		 QRobj = new QRcode();
+		 QRobj = new QRcode(Quantity,QRcode);
 		
 		
 		
@@ -218,11 +233,14 @@ public class GoodP {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GoodP gg=new GoodP();
+		GoodP gg=new GoodP("豆漿","政大","鮪魚飯糰.jpg","11111",8);
+		JPanel p=gg.getGoodP();
+		gg.setBounds(14, 10, 394, 143);
 JFrame j=new JFrame();
+
 j.setVisible(true);
-j.setLayout(null);
-j.add(gg.getGoodP());
+j.getContentPane().setLayout(null);
+j.getContentPane().add(p);
 
 	}
 

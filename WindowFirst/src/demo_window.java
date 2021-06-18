@@ -76,7 +76,7 @@ public class demo_window {
 		MainPanel.setLayout(null);
 		
 		JLabel UserImg = new JLabel("New label");
-		UserImg.setIcon(new ImageIcon(demo_window.class.getResource("/img/me1.jpg")));
+		UserImg.setIcon(new ImageIcon(demo_window.class.getResource("/img/我.jpg")));
 		UserImg.setBounds(160, 22, 99, 100);
 		MainPanel.add(UserImg);
 		

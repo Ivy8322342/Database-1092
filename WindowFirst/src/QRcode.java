@@ -18,8 +18,10 @@ import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 
 public class QRcode {
-	
+	int Quantity;
+	String QRcode;
 	JFrame QRframe;
+	String StoreName;
 	
 	/**
 	 * @wbp.nonvisual location=509,365
@@ -33,7 +35,7 @@ public class QRcode {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QRcode window = new QRcode();
+					QRcode window = new QRcode("政興",11,"義美全糖豆漿.png");
 					window.QRframe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +47,11 @@ public class QRcode {
 	/**
 	 * Create the application.
 	 */
-	public QRcode() {
+	public QRcode(String StoreName,int Quantity,String QRcode) {
+		this.StoreName=StoreName;
+		this.Quantity=Quantity;
+		this.QRcode=QRcode;
+		
 		initialize();
 	}
 	//dia
@@ -87,8 +93,8 @@ public class QRcode {
 		MainPanel.setLayout(null);
 		
 		JPanel FooterPanel = new JPanel();
-		FooterPanel.setBackground(new Color(224, 255, 255));
 		FooterPanel.setBounds(0, 380, 436, 81);
+		FooterPanel.setBackground(new Color(224, 255, 255));
 		MainPanel.add(FooterPanel);
 		FooterPanel.setLayout(null);
 		
@@ -149,16 +155,17 @@ public class QRcode {
 		FooterPanel.add(BagLabel);
 		
 		JPanel ShowPanel = new JPanel();
+		ShowPanel.setBounds(62, 22, 300, 265);
 		ShowPanel.setBackground(new Color(255, 235, 205));
-		ShowPanel.setBounds(62, 22, 300, 274);
 		MainPanel.add(ShowPanel);
 		ShowPanel.setLayout(null);
 		
-		JLabel QRLabel = new JLabel("New label");
-		QRLabel.setBounds(64, 10, 167, 148);
+		JLabel QRLabel = new JLabel("");
+		QRLabel.setIcon(new ImageIcon(QRcode.class.getResource("/img/"+QRcode)));
+		QRLabel.setBounds(75, 10, 167, 148);
 		ShowPanel.add(QRLabel);
 		
-		JLabel R_CodeLabel = new JLabel("政大");
+		JLabel R_CodeLabel = new JLabel(""+StoreName);
 		R_CodeLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
 		R_CodeLabel.setBounds(167, 214, 75, 15);
 		ShowPanel.add(R_CodeLabel);
@@ -209,6 +216,7 @@ public class QRcode {
 		ShowPanel.add(L_BackOffLabel);
 		
 		JPanel CanclePanel = new JPanel();
+		CanclePanel.setBounds(154, 329, 101, 41);
 		//Add actionListener
 		CanclePanel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -219,7 +227,6 @@ public class QRcode {
 		});
 		CanclePanel.setBorder(UIManager.getBorder("RadioButton.border"));
 		CanclePanel.setBackground(new Color(153, 107, 31));
-		CanclePanel.setBounds(154, 329, 101, 41);
 		MainPanel.add(CanclePanel);
 		CanclePanel.setLayout(null);
 		
@@ -229,13 +236,21 @@ public class QRcode {
 		CancleLabel.setBounds(28, 13, 75, 15);
 		CanclePanel.add(CancleLabel);
 		
+		JLabel lblNewLabel = new JLabel("剩餘數量:");
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+		lblNewLabel.setBounds(129, 296, 80, 23);
+		MainPanel.add(lblNewLabel);
+		
+		JLabel Quantity_Label = new JLabel("");
+		Quantity_Label.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+		Quantity_Label.setBounds(241, 297, 58, 23);
+		Quantity_Label.setText(""+Quantity);
+		MainPanel.add(Quantity_Label);
+		
 		FooterPanel.setVisible(false);
 		
 		
 		
 		
 	}
-	
-	
-	
 }

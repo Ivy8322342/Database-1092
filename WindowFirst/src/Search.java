@@ -55,9 +55,9 @@ public class Search {
   frame.getContentPane().setLayout(null);
   
   JLabel searchLabel = new JLabel("\u67E5\u8A62");
+  searchLabel.setBounds(188, 10, 161, 30);
   searchLabel.setForeground(Color.WHITE);
   searchLabel.setFont(new Font("華康中特圓體(P)", Font.BOLD, 30));
-  searchLabel.setBounds(188, 10, 161, 30);
   frame.getContentPane().add(searchLabel);
   
   JPanel topPanel = new JPanel();
@@ -88,13 +88,13 @@ public class Search {
   searchPanel_3.add(numLabel_3);
   
   JLabel branchLabel_2 = new JLabel("XX\u5E97");
-  branchLabel_2.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
   branchLabel_2.setBounds(36, 217, 54, 20);
+  branchLabel_2.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
   frame.getContentPane().add(branchLabel_2);
   
   JLabel branchLabel_3 = new JLabel("XX\u5E97");
-  branchLabel_3.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
   branchLabel_3.setBounds(36, 316, 54, 20);
+  branchLabel_3.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
   frame.getContentPane().add(branchLabel_3);
   
   JPanel searchPanel_2 = new JPanel();
@@ -113,23 +113,23 @@ public class Search {
   searchPanel_2.add(numLabel_2);
   
   JComboBox cityComboBox = new JComboBox();
-  cityComboBox.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   cityComboBox.setBounds(92, 60, 120, 42);
+  cityComboBox.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   frame.getContentPane().add(cityComboBox);
   
   JLabel cityLabel = new JLabel("\u7E23\u5E02\uFF1A");
-  cityLabel.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 22));
   cityLabel.setBounds(24, 68, 72, 26);
+  cityLabel.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 22));
   frame.getContentPane().add(cityLabel);
   
   JLabel areaLabel = new JLabel("\u5730\u5340\uFF1A");
-  areaLabel.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 22));
   areaLabel.setBounds(228, 69, 72, 26);
+  areaLabel.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 22));
   frame.getContentPane().add(areaLabel);
   
   JComboBox areaComboBox = new JComboBox();
-  areaComboBox.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   areaComboBox.setBounds(293, 60, 120, 42);
+  areaComboBox.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   frame.getContentPane().add(areaComboBox);
   
   JPanel searchPanel_1 = new JPanel();
@@ -148,46 +148,18 @@ public class Search {
   searchPanel_1.add(numLabel_1);
   
   JLabel branchLabel_1 = new JLabel("XX\u5E97");
-  branchLabel_1.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
   branchLabel_1.setBounds(36, 112, 54, 20);
+  branchLabel_1.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
   frame.getContentPane().add(branchLabel_1);
-  
-  JButton nextButton = new JButton("\u4E0B\u4E00\u9801");
-  nextButton.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
-  nextButton.setBounds(173, 405, 98, 25);
-  
-  JButton lastButton = new JButton("上一頁");
-  lastButton.setBounds(0, 0, 98, 25);
-  lastButton.addActionListener(new ActionListener() {
-   public void actionPerformed(ActionEvent e) {
-   }
-  });
-  lastButton.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
-  JPanel prePanel = new JPanel();
-  prePanel.setBounds(80, 421, 98, 25);
-  prePanel.setLayout(null);
-  prePanel.add(lastButton);
-  prePanel.setVisible(false);
-  
-  nextButton.addActionListener(new ActionListener() {
-   public void actionPerformed(ActionEvent e) {
-    page ++;
-    prePanel.setVisible(true);
-    nextButton.setBounds(258, 421, 98, 25);
-    System.out.println(page);
-   }
-  });
-  frame.getContentPane().add(prePanel);
-  frame.getContentPane().add(nextButton);
   
   
   frame.setBounds(100, 100, 450, 550);
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   
   JPanel FooterPanel = new JPanel();
-	FooterPanel.setBounds(0, 433, 436, 81);
+  FooterPanel.setBounds(0, 433, 436, 81);
 	FooterPanel.setBackground(new Color(153,107 ,31));
-	 frame.add(FooterPanel);
+	 frame.getContentPane().add(FooterPanel);
 	FooterPanel.setLayout(null);
 	
 	JLabel TimeLabel=new JLabel("");
@@ -245,6 +217,28 @@ public class Search {
 	BagLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/bag1.png")));
 	BagLabel.setBounds(132, 10, 68, 61);
 	FooterPanel.add(BagLabel);
+	
+	JButton lastButton = new JButton("上一頁");
+	lastButton.setBounds(83, 405, 98, 25);
+	frame.getContentPane().add(lastButton);
+	lastButton.addActionListener(new ActionListener() {
+	 public void actionPerformed(ActionEvent e) {
+	 }
+	});
+	lastButton.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
+	
+	JButton nextButton = new JButton("\u4E0B\u4E00\u9801");
+	nextButton.setBounds(251, 405, 98, 25);
+	frame.getContentPane().add(nextButton);
+	nextButton.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
+	
+	nextButton.addActionListener(new ActionListener() {
+	 public void actionPerformed(ActionEvent e) {
+	  page ++;
+	
+	  System.out.println(page);
+	 }
+	});
 
 	GridBagConstraints gc;
 	JLabel label = new JLabel("Label 2");
