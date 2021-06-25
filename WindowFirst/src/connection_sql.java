@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class connection_sql 
 {
  static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
- static final String DB_URL = "jdbc:mysql://localhost:3306/world?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+ static final String DB_URL = "jdbc:mysql://localhost:3306/company?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
  static final String USER = "ivy";
  static final String PASS = "ab8322342";
  
