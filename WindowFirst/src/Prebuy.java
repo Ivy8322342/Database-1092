@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 import javax.swing.JTabbedPane;
 
 public class Prebuy {
+	demo_window window;
 	 Search search1;
 	 Search  search2;
 	JFrame frame;
@@ -57,7 +58,7 @@ public class Prebuy {
   EventQueue.invokeLater(new Runnable() {
    public void run() {
     try {
-     Prebuy window = new Prebuy("ivy20468");
+     Prebuy window = new Prebuy("ivy204");
      window.frame.setVisible(true);
     } catch (Exception e) {
      e.printStackTrace();
@@ -71,6 +72,7 @@ public class Prebuy {
  * @throws SQLException 
   */
  public Prebuy(String cid) throws SQLException {
+	 this.cid=cid;
 	 prebuy_b=new PreBuy_Back(cid);
   initialize();
  }
@@ -349,7 +351,12 @@ public class Prebuy {
 	AccountLabel.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			demo_window window = new demo_window();
+			
+				try{newdemo();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			window.Accountframe.setVisible(true);
 			 frame.setVisible(false);
 			
@@ -561,6 +568,9 @@ public class Prebuy {
 	   System.out.println("pID="+Product_ID);
 	 }
 	 }
+ public void newdemo() throws SQLException {
+	 window = new demo_window(cid,this);
+ }
  
  
  

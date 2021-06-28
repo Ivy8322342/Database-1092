@@ -15,9 +15,9 @@ public class demo_back {
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
- demo_back demo=new demo_back("ivy20468");
+ demo_back demo=new demo_back("belle1192");
  demo.CustomerInfo();
- demo.edit("ivy204", "1123","vul","ÃÆ");
+// demo.edit("ivy204", "1123","vul","ÃÆ");
 	}
 	public String CustomerInfo() throws SQLException{
 		
@@ -88,6 +88,11 @@ public class demo_back {
 					+ "SET FirstName=? "
 					+ "WHERE Password=? "
 					+ "AND Customer_ID=?");
+			//update prebuy's customer_ID
+			PreparedStatement stat5=conn.prepareStatement("UPDATE PREBUY "
+					+ "SET Customer_ID=? "
+					+ "WHERE Customer_ID=?");
+					
 			stat1.setString(1, Newid);
 			stat1.setString(2, oldpass);
 			stat1.setString(3, oldcid);
@@ -103,10 +108,15 @@ public class demo_back {
 			stat4.setString(1, NewFn);
 			stat4.setString(2, oldpass);
 			stat4.setString(3, oldcid);
+			
+			stat5.setString(1, Newid);
+			stat5.setString(2,oldcid);
+			
 			stat1.executeUpdate();
 			stat2.executeUpdate();
 			stat3.executeUpdate();
 			stat4.executeUpdate();
+			stat5.executeUpdate();
 			
 			
 			System.out.println("­×§ï¦¨¥\!!");

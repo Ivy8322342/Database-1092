@@ -14,12 +14,22 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
+import javax.swing.SwingConstants;
 
 public class demo_window {
-
+	Prebuy prebuy;
+	String Cid;
+	String Name;
+	String password;
+    int countclick;
 	JFrame Accountframe;
-	private JTextField account;
-	private JTextField password;
+	 JTextField accountT;
+	 JTextField passwordT;
+	demo_back Dback;
+	 JTextField NtextField;
+	 JLabel WornLabel = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -28,7 +38,7 @@ public class demo_window {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					demo_window window = new demo_window();
+					demo_window window = new demo_window("ivy204");
 					window.Accountframe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,15 +49,21 @@ public class demo_window {
 
 	/**
 	 * Create the application.
+	 * @throws SQLException 
 	 */
-	public demo_window() {
+	public demo_window(String Cid,Prebuy p) throws SQLException {
+		this.Cid=Cid;
+		this.prebuy=p;
+		Dback=new demo_back(Cid);
+		this.countclick=0;
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws SQLException 
 	 */
-	private void initialize() {
+	private void initialize() throws SQLException {
 		//border round
 		 AbstractBorder brdrLeft = new TextBubbleBorder(Color.BLACK,2,16,0);
 		
@@ -70,6 +86,7 @@ public class demo_window {
 		pageLabel.setFont(new Font("微軟正黑體", Font.BOLD, 26));
 		
 		JPanel MainPanel = new JPanel();
+		MainPanel.setForeground(new Color(0, 0, 0));
 		MainPanel.setBackground(new Color(250, 245,172,98));
 		MainPanel.setBounds(0, 52, 436, 461);
 		Accountframe.getContentPane().add(MainPanel);
@@ -108,9 +125,9 @@ public class demo_window {
 		SearchLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 Search swindow=new  Search();
-				swindow.frame.setVisible(true);
-				Accountframe.setVisible(false);
+//				 Search swindow=new  Search();
+//				swindow.frame.setVisible(true);
+//				Accountframe.setVisible(false);
 			}
 		});
 		SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/search.png")));
@@ -125,8 +142,15 @@ public class demo_window {
 		JLabel BagLabel = new JLabel("New label");
 		BagLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				Prebuy pwindow=new Prebuy();
-				pwindow.frame.setVisible(true);
+//				Prebuy pwindow=new Prebuy();
+//				pwindow.frame.setVisible(true);
+				try {
+					prebuy=new Prebuy(Cid);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				prebuy.frame.setVisible(true);
 				Accountframe.setVisible(false);
 			}
 		});
@@ -139,18 +163,20 @@ public class demo_window {
 		BlackPanel.setBounds(0, 0, 436, 65);
 		MainPanel.add(BlackPanel);
 		
-		JLabel UserName = new JLabel("\u963F\u6C81");
-		UserName.setFont(new Font("微软雅黑", Font.PLAIN, 22));
-		UserName.setBounds(190, 127, 51, 39);
-		MainPanel.add(UserName);
-		
 		JLabel AccountL = new JLabel("\u5E33\u865F");
 		AccountLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				demo_window window = new demo_window();
-				window.Accountframe.setVisible(true);
-				Accountframe.setVisible(false);
+//				if(countclick==0) {
+//				demo_window window = new demo_window();
+//				window.Accountframe.setVisible(true);
+//				Accountframe.setVisible(false);
+//				countclick=1;}
+//				else if(countclick==1) {
+//					
+//					countclick=0;
+//				}
+				
 				
 			}
 			
@@ -170,31 +196,125 @@ public class demo_window {
 		PasswordL.setBounds(78, 257, 46, 28);
 		MainPanel.add(PasswordL);
 		
-		account = new JTextField();
-		account.setFont(new Font("新細明體", Font.PLAIN, 18));
-		account.setText("12345678");
-		account.setBounds(134, 201, 172, 28);
-		MainPanel.add(account);
-		account.setColumns(10);
+		accountT = new JTextField();
+		accountT.setFont(new Font("新細明體", Font.PLAIN, 18));
+		accountT.setText("12345678");
+		accountT.setBounds(134, 201, 172, 28);
+		MainPanel.add(accountT);
+		accountT.setColumns(20);
+//		accountT.setEditable(false);
 		
-		password = new JTextField();
-		password.setFont(new Font("新細明體", Font.PLAIN, 18));
-		password.setText("ab3333333");
-		password.setBounds(134, 259, 172, 28);
-		MainPanel.add(password);
-		password.setColumns(10);
+		passwordT = new JTextField();
+		passwordT.setFont(new Font("新細明體", Font.PLAIN, 18));
+		passwordT.setText("ab3333333");
+		passwordT.setBounds(134, 259, 172, 28);
+		MainPanel.add(passwordT);
+		passwordT.setColumns(20);
+//		passwordT.setEditable(false);
+		
+		
+		JLabel EditInfLabel = new JLabel("編輯會員資訊");
+		EditInfLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		EditInfLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		EditInfLabel.setForeground(SystemColor.window);
+		EditInfLabel.setBounds(22, 10, 132, 29);
 		
 		JPanel EditInfPanel = new JPanel();
+		EditInfPanel.add(EditInfLabel);
+		EditInfPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(countclick==0) {
+				accountT.setEditable(true);
+				passwordT.setEditable(true);
+				NtextField.setEditable(true);
+				EditInfLabel.setText("OK!");
+				countclick=1;
+				System.out.println("count="+countclick);
+				}
+				else if(countclick==1) {
+					if(accountT.getText().trim().length()<2||passwordT.getText().trim().length()<2
+							||NtextField.getText().length()<2||NtextField.getText().equals("請輸入大於一個字")) {
+						accountT.setText(Cid);
+						passwordT.setText(password);
+						NtextField.setText(Name);
+						WornLabel.setText("格式不符，請重新輸入");
+					}else {WornLabel.setText("");
+					String Newid=accountT.getText();
+					String NewPassw=passwordT.getText();
+					
+					
+					String NewName=NtextField.getText();
+					String LN=NewName.substring(0,1);
+					String FN=NewName.substring(1);
+					try {
+						Dback.edit(Newid, NewPassw, LN, FN);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					accountT.setEditable(false);
+					passwordT.setEditable(false);
+					NtextField.setEditable(false);
+					EditInfLabel.setText("編輯會員資訊");
+					countclick=0;
+					
+					Cid=Newid;
+					password=NewPassw;
+					Name=NewName;
+					
+					System.out.println("count="+countclick);
+					System.out.println("this.Cid="+Cid+"; this.password="+password+"; this.Name="+Name);
+					
+					
+					}
+					
+				}
+			}
+		});
+		
 		EditInfPanel.setBackground(SystemColor.desktop);
 		EditInfPanel.setBounds(122, 309, 184, 49);
 		MainPanel.add(EditInfPanel);
 		EditInfPanel.setLayout(null);
 		EditInfPanel.setBorder(brdrLeft);
 		
-		JLabel EditInfLabel = new JLabel("編輯會員資訊");
-		EditInfLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
-		EditInfLabel.setForeground(SystemColor.window);
-		EditInfLabel.setBounds(30, 10, 132, 29);
-		EditInfPanel.add(EditInfLabel);
+		NtextField = new JTextField();
+		NtextField.setBackground(new Color(250, 245, 172));
+		NtextField.setText("黃沁甯");
+//		NtextField.setEditable(false);
+		NtextField.setHorizontalAlignment(SwingConstants.CENTER);
+		NtextField.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+		NtextField.setBounds(0, 126, 436, 41);
+		MainPanel.add(NtextField);
+		NtextField.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(250, 245, 172));
+		panel.setBounds(0, 229, 436, 28);
+		MainPanel.add(panel);
+		panel.setLayout(null);
+		
+		
+		WornLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		WornLabel.setBounds(59, 0, 296, 28);
+		panel.add(WornLabel);
+		initialShow();
+		
+		
+		
+	}
+	public void initialShow() throws SQLException {
+		String info=Dback.CustomerInfo();
+		this.Cid=info.split(",")[0];
+		this.password=info.split(",")[1];
+		this.Name=info.split(",")[2]+info.split(",")[3];	
+		this.accountT.setText(Cid);
+		this.passwordT.setText(password);
+		this.NtextField.setText(Name);
+		this.accountT.setEditable(false);
+		this.passwordT.setEditable(false);
+		this.NtextField.setEditable(false);
 	}
 }

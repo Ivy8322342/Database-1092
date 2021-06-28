@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 public class Login {
 
  Login_Back back=new Login_Back();
- 
+ demo_window demo;
   JFrame frame;
   JLabel ErrorLabel = new JLabel("");
  private JTextField accTextField;
@@ -158,7 +158,8 @@ public class Login {
 			 System.out.println("Successed!!");
 			 Prebuy prebuy=new Prebuy(User);
 			 prebuy.frame.setVisible(true);
-			 ErrorLabel.setText("登入失敗成功!!");
+			 ErrorLabel.setText("");
+//			 ErrorLabel.setText("登入成功!!");
 //			 this.frame.dispose();
 			 return;
 		 }
