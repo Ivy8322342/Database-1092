@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
+import javax.swing.UIManager;
 
 public class Search {
 
@@ -27,11 +28,13 @@ public class Search {
  Search_Back searchback;
  JComboBox areaComboBox = new JComboBox();
  JLabel quanLabel_1 = new JLabel("\u5546\u54C1\u5269\u9918\u6578\u91CF\uFF1A");
+ JLabel quanLabel_2 = new JLabel("\u5546\u54C1\u5269\u9918\u6578\u91CF\uFF1A");
+ JLabel quanLabel_2_1 = new JLabel("\u5546\u54C1\u5269\u9918\u6578\u91CF\uFF1A");
  JLabel numLabel_1 = new JLabel("_");
- JLabel branchLabel_1 = new JLabel("\u5E97\u540D:");
+ JLabel branchLabel_1 = new JLabel("");
  JLabel numLabel_3 = new JLabel("_");
- JLabel branchLabel_2 = new JLabel("\u5E97\u540D:");
- JLabel branchLabel_3 = new JLabel("\u5E97\u540D:");
+ JLabel branchLabel_2 = new JLabel("");
+ JLabel branchLabel_3 = new JLabel("");
  JLabel numLabel_2 = new JLabel("_");
  JPanel searchPanel_2 = new JPanel();
  JLabel PageLabel = new JLabel("\u9801\u6578");
@@ -40,7 +43,7 @@ public class Search {
  ArrayList<String>Aldis3=new ArrayList<String>();
  private int page;
  //因為是由商品出發，來選擇妳要去取貨的店家
- int Product_ID=1;
+ int Product_ID;
 
  /**
   * Launch the application.
@@ -49,7 +52,7 @@ public class Search {
   EventQueue.invokeLater(new Runnable() {
    public void run() {
     try {
-     Search window = new Search();
+     Search window = new Search(1);
      window.frame.setVisible(true);
     } catch (Exception e) {
      e.printStackTrace();
@@ -60,32 +63,39 @@ public class Search {
 
  /**
   * Create the application.
+ * @throws SQLException 
   */
- public Search() {
+ public Search(int Product_ID) throws SQLException {
+	 this .Product_ID=Product_ID;
   initialize();
  }
 
  /**
   * Initialize the contents of the frame.
+ * @throws SQLException 
   */
- private void initialize() {
+ private void initialize() throws SQLException {
+
   page = 1;
-  frame = new JFrame();
   searchback=new Search_Back();
+  frame = new JFrame();
+  
+  ShowPName();
   frame.getContentPane().setBackground(new Color(250,245,172,88));
   frame.getContentPane().setLayout(null);
-  
-  JLabel searchLabel = new JLabel("\u67E5\u8A62");
-  searchLabel.setBounds(188, 10, 161, 30);
-  searchLabel.setForeground(Color.WHITE);
-  searchLabel.setFont(new Font("華康中特圓體(P)", Font.BOLD, 30));
-  frame.getContentPane().add(searchLabel);
   
   JPanel topPanel = new JPanel();
   topPanel.setBounds(0, 0, 436, 50);
   topPanel.setBackground(new Color(153,107,31));
   topPanel.setForeground(Color.BLACK);
   frame.getContentPane().add(topPanel);
+  topPanel.setLayout(null);
+  
+  JLabel searchLabel = new JLabel("\u67E5\u8A62");
+  searchLabel.setBounds(184, 10, 161, 30);
+  topPanel.add(searchLabel);
+  searchLabel.setForeground(Color.WHITE);
+  searchLabel.setFont(new Font("華康中特圓體(P)", Font.BOLD, 30));
   
 //  JPanel bottomPanel = new JPanel();
 //  bottomPanel.setForeground(Color.BLACK);
@@ -98,14 +108,14 @@ public class Search {
   frame.getContentPane().add(searchPanel_3);
   searchPanel_3.setLayout(null);
   
-  JLabel quanLabel_2_1 = new JLabel("\u5546\u54C1\u5269\u9918\u6578\u91CF\uFF1A");
+  
   quanLabel_2_1.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   quanLabel_2_1.setBounds(21, 16, 168, 27);
   searchPanel_3.add(quanLabel_2_1);
   
 //  JLabel numLabel_3 = new JLabel("3");
   numLabel_3.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
-  numLabel_3.setBounds(199, 16, 40, 26);
+  numLabel_3.setBounds(199, 16, 81, 26);
   searchPanel_3.add(numLabel_3);
   
 //  JPanel searchPanel_2 = new JPanel();
@@ -113,14 +123,14 @@ public class Search {
   frame.getContentPane().add(searchPanel_2);
   searchPanel_2.setLayout(null);
   
-  JLabel quanLabel_2 = new JLabel("\u5546\u54C1\u5269\u9918\u6578\u91CF\uFF1A");
+  
   quanLabel_2.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   quanLabel_2.setBounds(21, 16, 168, 27);
   searchPanel_2.add(quanLabel_2);
   
 //  JLabel numLabel_2 = new JLabel("3");
   numLabel_2.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
-  numLabel_2.setBounds(199, 16, 40, 26);
+  numLabel_2.setBounds(199, 16, 66, 26);
   searchPanel_2.add(numLabel_2);
   
   
@@ -185,7 +195,7 @@ public class Search {
   
  // 
   numLabel_1.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
-  numLabel_1.setBounds(199, 16, 40, 26);
+  numLabel_1.setBounds(199, 16, 69, 26);
   searchPanel_1.add(numLabel_1);
   
   
@@ -215,15 +225,16 @@ public class Search {
 	FooterPanel.add(TimeLabel);
 	
 	JLabel SearchLabel = new JLabel("New label");
+	SearchLabel.setBackground(UIManager.getColor("Button.focus"));
 	SearchLabel.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			Search swindow=new Search();
-			swindow.frame.setVisible(true);
-			 frame.setVisible(false);
+//			Search swindow=new Search();
+//			swindow.frame.setVisible(true);
+//			 frame.setVisible(false);
 		}
 	});
-	SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/search.png")));
+	SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/Atsearch.png")));
 	SearchLabel.setBounds(234, 10, 68, 61);
 	FooterPanel.add(SearchLabel);
 	
@@ -245,8 +256,7 @@ public class Search {
 	JLabel BagLabel = new JLabel("New label");
 	BagLabel.addMouseListener(new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
-			Prebuy pwindow=new Prebuy();
-			pwindow.frame.setVisible(true);
+			
 			 frame.setVisible(false);
 		}
 	});
@@ -377,9 +387,9 @@ public class Search {
 	 numLabel_1.setText("");
 	 numLabel_2.setText("");
 	 numLabel_3.setText("");
-	 branchLabel_1.setText("店名: ");
-	 branchLabel_2.setText("店名: ");
-	 branchLabel_3.setText("店名: ");
+	 branchLabel_1.setText("");
+	 branchLabel_2.setText("");
+	 branchLabel_3.setText("");
 	 
 	 System.out.println("Clear Branch and Quantity_Left Labels!1");
  }
@@ -423,6 +433,13 @@ public class Search {
 		 setLabels(Aldis3.get(page-1),branchLabel_3,numLabel_3);
 		 PageLabel.setText("p "+page+"");
 	 }
+ }
+ public void ShowPName() throws SQLException{
+	String pname= searchback.ProductName(Product_ID);
+//	quanLabel_1.setText(pname+"剩餘數量:");
+//	quanLabel_2.setText(pname+"剩餘數量:");
+//	quanLabel_2_1.setText(pname+"剩餘數量:");
+	frame.setTitle(pname);
  }
  
  }
