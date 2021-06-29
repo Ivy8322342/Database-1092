@@ -123,13 +123,13 @@ public class demo_back {
 			String newcid=Newid;
 			this.Cid=newcid;
 			String[] s1=CustomerInfo().split(",");
+//			
+//			String newpass=s1[1];
+//			String newName=s1[2]+s1[3];
 			
-			String newpass=s1[1];
-			String newName=s1[2]+s1[3];
-			
-			this.passw=newpass;
-			this.Name=newName;
-			System.out.println("newid="+newcid+"\n newpass="+newpass+"\n newName="+newName+"/////////////");		
+			this.passw=NewPassw;
+			this.Name=NewLn+NewFn;
+			System.out.println("newid="+newcid+"\n newpass="+passw+"\n newName="+Name+"/////////////");		
 			
 			
 		}catch(SQLException e) {

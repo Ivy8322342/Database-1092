@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -110,9 +112,7 @@ public class demo_window {
 				//show QRcode
 //				QRcode codeframe=new QRcode();
 //				codeframe.QRframe.setVisible(true);
-//				Accountframe.setVisible(false);
-				ReserveFrame reframe=new ReserveFrame();
-				reframe.reserveframe.setVisible(true);
+				prebuy.resF.reserveframe.setVisible(true);
 				Accountframe.setVisible(false);
 				
 			}
@@ -121,21 +121,45 @@ public class demo_window {
 		TimeLabel.setBounds(33, 10, 68, 61);
 		FooterPanel.add(TimeLabel);
 		
-		JLabel SearchLabel = new JLabel("New label");
-		SearchLabel.addMouseListener(new MouseAdapter() {
+		JLabel LogoutLabel = new JLabel("");
+		LogoutLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 //				 Search swindow=new  Search();
 //				swindow.frame.setVisible(true);
-//				Accountframe.setVisible(false);
+				JFrame f=new JFrame();
+				JDialog d=new JDialog(f,"登出",true);
+				d.setBounds(170, 222, 315, 200);
+				 d.getContentPane().setLayout(null);  
+				 JButton b = new JButton ("是");  
+				 b.setBounds(102,100, 85, 23);
+				 b.addActionListener ( new ActionListener()  
+			        {  
+			            public void actionPerformed( ActionEvent e )  
+			            {  
+			                d.setVisible(false); 
+			                Accountframe.dispose();;
+			            }  
+			        });  
+				JLabel st= new JLabel ("確定要登出嗎?");
+				st.setBounds(80,46,269,46);
+				 d.getContentPane().add(st);  
+			        d.getContentPane().add(b);
+			        b.setVisible(true);
+//			        d.setSize(300,300);    
+			        d.setVisible(true);  
+				
+				
+				
+				
 			}
 		});
-		SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/search.png")));
-		SearchLabel.setBounds(234, 10, 68, 61);
-		FooterPanel.add(SearchLabel);
+		LogoutLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/Logout.png")));
+		LogoutLabel.setBounds(234, 10, 68, 61);
+		FooterPanel.add(LogoutLabel);
 		
 		JLabel AccountLabel = new JLabel("New label");
-		AccountLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/account2.png")));
+		AccountLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/Ataccount2.png")));
 		AccountLabel.setBounds(336, 10, 68, 61);
 		FooterPanel.add(AccountLabel);
 		

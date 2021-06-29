@@ -22,6 +22,9 @@ import javax.swing.UIManager;
 import javax.swing.JTabbedPane;
 
 public class Prebuy {
+	ArrayList<GoodP>UpArrl;
+	ArrayList<GoodP>downArrlArrayList;
+	reserveF resF;
 	demo_window window;
 	 Search search1;
 	 Search  search2;
@@ -82,6 +85,8 @@ public class Prebuy {
  * @throws SQLException 
   */
  private void initialize() throws SQLException {
+  resF=new reserveF(this);
+  resF.reserveframe.setVisible(false);
   page = 1;
   frame = new JFrame();
   frame.getContentPane().setBackground(new Color(250,245,172,98));
@@ -284,8 +289,7 @@ public class Prebuy {
 	TimeLabel.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			ReserveFrame rwindow = new ReserveFrame();
-			rwindow.reserveframe.setVisible(true);
+			 resF.reserveframe.setVisible(true);
 			 frame.setVisible(false);
 			
 		}
@@ -555,16 +559,18 @@ public class Prebuy {
  
  public void upnewSearch() throws SQLException {
    int Product_ID=Integer.parseInt(upArrl.get(page-1).split(",")[5]);
-   search1=new Search(Product_ID);
+   search1=new Search(Product_ID,cid);
    search1.frame.setVisible(true);
+   this.frame.dispose();
    System.out.println("pID="+Product_ID);
 
  }
  public void downnewSearch() throws SQLException {
 	 if(downArrl.size()>=page) {
 	   int Product_ID=Integer.parseInt(downArrl.get(page-1).split(",")[5]);
-	   search2=new Search(Product_ID);
+	   search2=new Search(Product_ID,cid);
 	   search2.frame.setVisible(true);
+	   this.frame.dispose();
 	   System.out.println("pID="+Product_ID);
 	 }
 	 }

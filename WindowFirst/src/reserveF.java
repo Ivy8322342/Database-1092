@@ -1,6 +1,8 @@
 import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -30,6 +32,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import java.util.ArrayList;
+import javax.swing.SwingConstants;
 //ArrayList load Goodpanels
 //panelUpper
 //panelLower
@@ -42,11 +45,10 @@ import java.util.ArrayList;
 public class reserveF {
 
 	ArrayList<JPanel> GoodArray = new ArrayList<JPanel>();
-
+   Prebuy prebuy;
 	JFrame reserveframe;
 	JFrame diaframe;
 	JPanel No;
-	JPanel ContainP;
 	JFrame QRframe;
 	JLabel PageLabel;
 	JPanel UpperGood = null;
@@ -102,32 +104,13 @@ public class reserveF {
 
 	// 剛開始的時候是呈現第一頁
 	public void showPage() {
-		if (GoodArray.size() > 0 && curPage <= maxPage) {
-			maxPage = (int) ((GoodArray.size() + 1) / 2);
-			// if curPage==1, the [0], [1] goods in arraylist will be
-			// show; curPage==2,[2] [3];curPage==3, [4] [5]..
-			ContainP.add(GoodArray.get((curPage - 1) * 2));
-			GoodArray.get((curPage - 1) * 2).setVisible(true);
-			GoodArray.get((curPage - 1) * 2).setBounds(14, 10, 394, 143);
-
-			if ((GoodArray.size() - 1) > (curPage - 1) * 2 + 1) {
-
-				ContainP.add(GoodArray.get((curPage - 1) * 2 + 1));
-				GoodArray.get((curPage - 1) * 2 + 1).setBounds(14, 172, 394, 143);
-				GoodArray.get((curPage - 1) * 2 + 1).setVisible(true);
-			}
-		} else {
-			curPage = 1;
-			maxPage = 1;
-
-		}
-		PageLabel.setText(curPage + "/" + maxPage);
+		
 
 	}
 
 	public void CloseCurrentPage() {
 
-		ContainP.removeAll();
+	
 
 		PageLabel.setText(curPage + "/" + maxPage);
 
@@ -173,7 +156,8 @@ public class reserveF {
 	 * Create the application.
 	 * @throws SQLException 
 	 */
-	public reserveF() throws SQLException {
+	public reserveF(Prebuy prebuy) throws SQLException {
+		this.prebuy=prebuy;
 		initialize();
 
 	}
@@ -240,7 +224,7 @@ public class reserveF {
 
 		});
 
-		TimeLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/time.png")));
+		TimeLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/Attime.png")));
 		TimeLabel.setBounds(33, 10, 68, 61);
 		FooterPanel.add(TimeLabel);
 
@@ -249,12 +233,38 @@ public class reserveF {
 			@Override
 
 			public void mouseClicked(MouseEvent e) {
+				JFrame f=new JFrame();
+				JDialog d=new JDialog(f,"登出",true);
+				d.setBounds(170, 222, 315, 200);
+				 d.getContentPane().setLayout(null);  
+				 JButton b = new JButton ("是的");  
+				 b.setBounds(102,100, 85, 23);
+				 b.addActionListener ( new ActionListener()  
+			        {  
+			            public void actionPerformed( ActionEvent e )  
+			            {  
+			                d.setVisible(false); 
+			                reserveframe.setVisible(false);
+			            	
+//								demo_window demo=new demo_window(prebuy.cid,prebuy);
+//								demo.Accountframe.setVisible(true);
+							
+							
+			            }  
+			        });  
+				JLabel st= new JLabel ("你要登出嗎?");
+				st.setBounds(80,46,269,46);
+				 d.getContentPane().add(st);  
+			        d.getContentPane().add(b);
+			        b.setVisible(true);
+//			        d.setSize(300,300);    
+			        d.setVisible(true);  
 //				SearchFrame swindow = new SearchFrame();
 //				swindow.frame.setVisible(true);
-				reserveframe.setVisible(false);
+				
 			}
 		});
-		SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/search.png")));
+		SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/Logout.png")));
 		SearchLabel.setBounds(234, 10, 68, 61);
 		FooterPanel.add(SearchLabel);
 
@@ -262,9 +272,37 @@ public class reserveF {
 		AccountLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JFrame f=new JFrame();
+				JDialog d=new JDialog(f,"小提示",true);
+				d.setBounds(170, 222, 315, 200);
+				 d.getContentPane().setLayout(null);  
+				 JButton b = new JButton ("是的");  
+				 b.setBounds(102,100, 85, 23);
+				 b.addActionListener ( new ActionListener()  
+			        {  
+			            public void actionPerformed( ActionEvent e )  
+			            {  
+			                d.setVisible(false); 
+			            	try {
+								demo_window demo=new demo_window(prebuy.cid,prebuy);
+								demo.Accountframe.setVisible(true);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							reserveframe.setVisible(false);
+			            }  
+			        });  
+				JLabel st= new JLabel ("預約資訊將會遺失，仍要前往嗎?");
+				st.setBounds(80,46,269,46);
+				 d.getContentPane().add(st);  
+			        d.getContentPane().add(b);
+			        b.setVisible(true);
+//			        d.setSize(300,300);    
+			        d.setVisible(true);  
 //				demo_window window = new demo_window();
 //				window.Accountframe.setVisible(true);
-				reserveframe.setVisible(false);
+			
 
 			}
 
@@ -278,6 +316,7 @@ public class reserveF {
 			public void mouseClicked(MouseEvent e) {
 //				Prebuy pwindow = new Prebuy();
 //				pwindow.frame.setVisible(true);
+				prebuy.frame.setVisible(true);
 				reserveframe.setVisible(false);
 			}
 		});
@@ -291,9 +330,9 @@ public class reserveF {
 		JPanel OutContantP = new JPanel();
 		OutContantP.setBackground(new Color(250, 245, 172, 98));
 		scrollPane.setViewportView(OutContantP);
-		OutContantP.setLayout(null);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(275, 336, 106, 28);
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -303,8 +342,8 @@ public class reserveF {
 				}
 			}
 		});
+		OutContantP.setLayout(null);
 		panel_2.setBackground(new Color(0, 0, 0));
-		panel_2.setBounds(275, 336, 106, 28);
 		OutContantP.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -320,6 +359,7 @@ public class reserveF {
 		panel_2.add(lblNewLabel);
 
 		JPanel panel_2_1 = new JPanel();
+		panel_2_1.setBounds(70, 336, 106, 28);
 		panel_2_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -328,7 +368,6 @@ public class reserveF {
 			}
 		});
 		panel_2_1.setBackground(new Color(0, 0, 0));
-		panel_2_1.setBounds(70, 336, 106, 28);
 		OutContantP.add(panel_2_1);
 		panel_2_1.setLayout(null);
 
@@ -338,22 +377,34 @@ public class reserveF {
 		lblNewLabel_1.setBounds(21, 0, 75, 25);
 		panel_2_1.add(lblNewLabel_1);
 
-		ContainP = new JPanel();
-		ContainP.setAutoscrolls(true);
-		ContainP.setBackground(new Color(250, 245, 172, 98));
-		ContainP.setBounds(10, 1, 414, 325);
-		OutContantP.add(ContainP);
-		ContainP.setLayout(null);
-
 		JPanel panel = new JPanel();
 		panel.setBounds(186, 336, 75, 28);
 		OutContantP.add(panel);
 		panel.setLayout(null);
-		PageLabel = new JLabel("");
+		PageLabel = new JLabel("\u9801\u6578");
+		PageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		PageLabel.setBounds(10, 0, 55, 28);
 		panel.add(PageLabel);
 
 		PageLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 10, 414, 139);
+		OutContantP.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel UpLabel = new JLabel("");
+		UpLabel.setBounds(10, 10, 116, 116);
+		panel_1.add(UpLabel);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setBounds(10, 172, 414, 139);
+		OutContantP.add(panel_1_1);
+		panel_1_1.setLayout(null);
+		
+		JLabel DownLabel = new JLabel("");
+		DownLabel.setBounds(10, 10, 116, 116);
+		panel_1_1.add(DownLabel);
 
 		// add to Spanel
 		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", "義美全糖豆漿.png", 4);

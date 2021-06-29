@@ -161,7 +161,7 @@ public class QRcode {
 		ShowPanel.setLayout(null);
 		
 		JLabel QRLabel = new JLabel("");
-		QRLabel.setIcon(new ImageIcon(QRcode.class.getResource("/img/"+QRcode)));
+		QRLabel.setIcon(new ImageIcon(QRcode.class.getResource("/img/"+"義美全糖豆漿.png")));
 		QRLabel.setBounds(75, 10, 167, 148);
 		ShowPanel.add(QRLabel);
 		

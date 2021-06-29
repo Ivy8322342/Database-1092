@@ -23,7 +23,7 @@ import java.awt.BorderLayout;
 import javax.swing.UIManager;
 
 public class Search {
-
+ Prebuy prebuy;
  JFrame frame;
  Search_Back searchback;
  JComboBox areaComboBox = new JComboBox();
@@ -44,6 +44,7 @@ public class Search {
  private int page;
  //因為是由商品出發，來選擇妳要去取貨的店家
  int Product_ID;
+ String Cid;
 
  /**
   * Launch the application.
@@ -52,7 +53,7 @@ public class Search {
   EventQueue.invokeLater(new Runnable() {
    public void run() {
     try {
-     Search window = new Search(1);
+     Search window = new Search(1,"ivy20468");
      window.frame.setVisible(true);
     } catch (Exception e) {
      e.printStackTrace();
@@ -65,8 +66,9 @@ public class Search {
   * Create the application.
  * @throws SQLException 
   */
- public Search(int Product_ID) throws SQLException {
+ public Search(int Product_ID,String cid) throws SQLException {
 	 this .Product_ID=Product_ID;
+	 this.Cid=cid;
   initialize();
  }
 
@@ -75,7 +77,8 @@ public class Search {
  * @throws SQLException 
   */
  private void initialize() throws SQLException {
-
+prebuy=new Prebuy(Cid);
+prebuy.frame.setVisible(false);
   page = 1;
   searchback=new Search_Back();
   frame = new JFrame();
@@ -212,8 +215,7 @@ public class Search {
 	TimeLabel.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			ReserveFrame rwindow = new ReserveFrame();
-			rwindow.reserveframe.setVisible(true);
+			prebuy.resF.reserveframe.setVisible(true);
 			 frame.setVisible(false);
 			
 		}
@@ -242,8 +244,15 @@ public class Search {
 	AccountLabel.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			demo_window window = new demo_window();
-			window.Accountframe.setVisible(true);
+			demo_window window;
+			try {
+				window = new demo_window(Cid,prebuy);
+				window.Accountframe.setVisible(true);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			 frame.setVisible(false);
 			
 		}
@@ -256,7 +265,7 @@ public class Search {
 	JLabel BagLabel = new JLabel("New label");
 	BagLabel.addMouseListener(new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
-			
+			prebuy.frame.setVisible(true);
 			 frame.setVisible(false);
 		}
 	});
