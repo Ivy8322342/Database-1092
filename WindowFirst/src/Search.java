@@ -7,8 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.HeadlessException;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +19,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
@@ -37,6 +41,9 @@ public class Search {
  JLabel branchLabel_3 = new JLabel("");
  JLabel numLabel_2 = new JLabel("_");
  JPanel searchPanel_2 = new JPanel();
+ JLabel Wornlabel_1 = new JLabel("");
+ JLabel Wornlabel_2 = new JLabel("");
+ JLabel Wornlabel_3 = new JLabel("");
  JLabel PageLabel = new JLabel("\u9801\u6578");
  ArrayList<String>Aldis1=new ArrayList<String>();
  ArrayList<String>Aldis2=new ArrayList<String>();
@@ -45,6 +52,7 @@ public class Search {
  //因為是由商品出發，來選擇妳要去取貨的店家
  int Product_ID;
  String Cid;
+
 
  /**
   * Launch the application.
@@ -66,8 +74,9 @@ public class Search {
   * Create the application.
  * @throws SQLException 
   */
- public Search(int Product_ID,String cid) throws SQLException {
+ public Search(int Product_ID,String cid,Prebuy prebuy) throws SQLException {
 	 this .Product_ID=Product_ID;
+	 this.prebuy=prebuy;
 	 this.Cid=cid;
   initialize();
  }
@@ -77,7 +86,7 @@ public class Search {
  * @throws SQLException 
   */
  private void initialize() throws SQLException {
-prebuy=new Prebuy(Cid);
+//prebuy=new Prebuy(Cid);
 prebuy.frame.setVisible(false);
   page = 1;
   searchback=new Search_Back();
@@ -107,6 +116,61 @@ prebuy.frame.setVisible(false);
 //  frame.getContentPane().add(bottomPanel);
   
   JPanel searchPanel_3 = new JPanel();
+  searchPanel_3.addMouseListener(new MouseAdapter() {
+  	@Override
+  	public void mouseClicked(MouseEvent e) {
+  		if(branchLabel_3.getText().length()>=2&&!numLabel_3.getText().trim().equals("0")) {
+  		try {
+			if(prebuy.findRepeatOrder(Cid, Product_ID, branchLabel_3.getText())==false) {
+			JFrame f=new JFrame();
+			JDialog d=new JDialog(f,"即將預約取貨",true);
+			d.setBounds(170, 222, 315, 200);
+			 d.getContentPane().setLayout(null);  
+			 JButton b = new JButton ("是的!!");  
+			 b.setBounds(102,100, 85, 23);
+			 b.addActionListener ( new ActionListener()  
+			    {  
+			        public void actionPerformed( ActionEvent e )  
+			        {  
+			            d.setVisible(false); 
+			            //生城goodP的最小要素
+			           System.out.println("goodp要素:"+Cid+","+Product_ID+","+branchLabel_3.getText());
+			            
+			            try {
+							String info=prebuy.prebuy_b.findGoodPCom(Cid, Product_ID, branchLabel_3.getText());
+							prebuy.Arrl.add(info);
+							System.out.println("prebuy.Arrl size:"+prebuy.Arrl.size());
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			            
+			        }  
+			    });  
+			JLabel st= new JLabel ("要預約取貨嗎?");
+			st.setBounds(80,46,269,46);
+			 d.getContentPane().add(st);  
+			    d.getContentPane().add(b);
+			    b.setVisible(true);
+//	        d.setSize(300,300);    
+			    d.setVisible(true);  
+			}else {
+				Wornlabel_3.setText("重複預約");
+				Timer timer = new Timer();
+				timer.schedule(new TimerTask() {
+				        public void run() {
+				        	Wornlabel_3.setText("");
+				        }
+				}, 1000);
+				
+			}
+		} catch (HeadlessException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+  		}
+  	}
+  });
   searchPanel_3.setBounds(36, 346, 365, 59);
   frame.getContentPane().add(searchPanel_3);
   searchPanel_3.setLayout(null);
@@ -120,6 +184,61 @@ prebuy.frame.setVisible(false);
   numLabel_3.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 24));
   numLabel_3.setBounds(199, 16, 81, 26);
   searchPanel_3.add(numLabel_3);
+  searchPanel_2.addMouseListener(new MouseAdapter() {
+  	@Override
+	public void mouseClicked(MouseEvent e) {
+  		if(branchLabel_2.getText().length()>=2&&!numLabel_2.getText().trim().equals("0")) {
+  		try {
+			if(prebuy.findRepeatOrder(Cid, Product_ID, branchLabel_2.getText())==false) {
+			JFrame f=new JFrame();
+			JDialog d=new JDialog(f,"即將預約取貨",true);
+			d.setBounds(170, 222, 315, 200);
+			 d.getContentPane().setLayout(null);  
+			 JButton b = new JButton ("是的!!");  
+			 b.setBounds(102,100, 85, 23);
+			 b.addActionListener ( new ActionListener()  
+			    {  
+			        public void actionPerformed( ActionEvent e )  
+			        {  
+			            d.setVisible(false); 
+			            //生城goodP的最小要素
+			           System.out.println("goodp要素:"+Cid+","+Product_ID+","+branchLabel_2.getText());
+			            
+			            try {
+							String info=prebuy.prebuy_b.findGoodPCom(Cid, Product_ID, branchLabel_2.getText());
+							prebuy.Arrl.add(info);
+							System.out.println("prebuy.Arrl size:"+prebuy.Arrl.size());
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			            
+			        }  
+			    });  
+			JLabel st= new JLabel ("要預約取貨嗎?");
+			st.setBounds(80,46,269,46);
+			 d.getContentPane().add(st);  
+			    d.getContentPane().add(b);
+			    b.setVisible(true);
+//	        d.setSize(300,300);    
+			    d.setVisible(true);  
+			}else {
+				Wornlabel_2.setText("重複預約");
+				Timer timer = new Timer();
+				timer.schedule(new TimerTask() {
+				        public void run() {
+				        	Wornlabel_2.setText("");
+				        }
+				}, 1000);
+				
+			}
+		} catch (HeadlessException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+  		}
+  	}
+  });
   
 //  JPanel searchPanel_2 = new JPanel();
   searchPanel_2.setBounds(36, 247, 365, 59);
@@ -187,6 +306,61 @@ prebuy.frame.setVisible(false);
   frame.getContentPane().add(areaComboBox);
   
   JPanel searchPanel_1 = new JPanel();
+  searchPanel_1.addMouseListener(new MouseAdapter() {
+  	@Override
+  	public void mouseClicked(MouseEvent e) {
+  		if(branchLabel_1.getText().length()>=2&&!numLabel_1.getText().trim().equals("0")) {
+  		try {
+			if(prebuy.findRepeatOrder(Cid, Product_ID, branchLabel_1.getText())==false) {
+			JFrame f=new JFrame();
+			JDialog d=new JDialog(f,"即將預約取貨",true);
+			d.setBounds(170, 222, 315, 200);
+			 d.getContentPane().setLayout(null);  
+			 JButton b = new JButton ("是的!!");  
+			 b.setBounds(102,100, 85, 23);
+			 b.addActionListener ( new ActionListener()  
+			    {  
+			        public void actionPerformed( ActionEvent e )  
+			        {  
+			            d.setVisible(false); 
+			            //生城goodP的最小要素
+			           System.out.println("goodp要素:"+Cid+","+Product_ID+","+branchLabel_1.getText());
+			            
+			            try {
+							String info=prebuy.prebuy_b.findGoodPCom(Cid, Product_ID, branchLabel_1.getText());
+							prebuy.Arrl.add(info);
+							System.out.println("prebuy.Arrl size:"+prebuy.Arrl.size());
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+			            
+			        }  
+			    });  
+			JLabel st= new JLabel ("要預約取貨嗎?");
+			st.setBounds(80,46,269,46);
+			 d.getContentPane().add(st);  
+			    d.getContentPane().add(b);
+			    b.setVisible(true);
+//	        d.setSize(300,300);    
+			    d.setVisible(true);  
+			}else {
+				Wornlabel_1.setText("重複預約");
+				Timer timer = new Timer();
+				timer.schedule(new TimerTask() {
+				        public void run() {
+				        	Wornlabel_1.setText("");
+				        }
+				}, 1000);
+				
+			}
+		} catch (HeadlessException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+  		}
+  	}
+  });
   searchPanel_1.setBounds(36, 142, 365, 59);
   frame.getContentPane().add(searchPanel_1);
   searchPanel_1.setLayout(null);
@@ -300,6 +474,13 @@ prebuy.frame.setVisible(false);
 	panel.add(branchLabel_1);
 	branchLabel_1.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
 	
+	
+	Wornlabel_1.setForeground(new Color(255, 0, 0));
+	Wornlabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+	Wornlabel_1.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+	Wornlabel_1.setBounds(164, 10, 262, 30);
+	panel.add(Wornlabel_1);
+	
 	JPanel panel_1 = new JPanel();
 	panel_1.setBorder(null);
 	panel_1.setBackground(new Color(250,245,172));
@@ -310,6 +491,13 @@ prebuy.frame.setVisible(false);
 	panel_1.add(branchLabel_2);
 	branchLabel_2.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
 	
+	
+	Wornlabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+	Wornlabel_2.setForeground(Color.RED);
+	Wornlabel_2.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+	Wornlabel_2.setBounds(164, 6, 262, 30);
+	panel_1.add(Wornlabel_2);
+	
 	JPanel panel_2 = new JPanel();
 	panel_2.setBackground(new Color(250,245,172));
 	panel_2.setBounds(0, 304, 436, 42);
@@ -318,6 +506,13 @@ prebuy.frame.setVisible(false);
 	branchLabel_3.setBounds(33, 0, 145, 42);
 	panel_2.add(branchLabel_3);
 	branchLabel_3.setFont(new Font("華康中特圓體(P)", Font.PLAIN, 20));
+	
+	
+	Wornlabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+	Wornlabel_3.setForeground(Color.RED);
+	Wornlabel_3.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+	Wornlabel_3.setBounds(174, 12, 262, 30);
+	panel_2.add(Wornlabel_3);
 	
 	JPanel panel_3 = new JPanel();
 	panel_3.setBounds(188, 405, 61, 25);

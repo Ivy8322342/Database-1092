@@ -74,8 +74,8 @@ public class reserveF {
 	int Product_ID;
 
 	// 與產品呈現有關的方法
-	public void addGood(String PName, String SName, String Pic, String QRcode, int Quantity) {
-		GoodArray.add(new GoodP(PName, SName, Pic, QRcode, Quantity).getGoodP());
+	public void addGood(String PName, String SName, String Pic, int Quantity) {
+		GoodArray.add(new GoodP(PName, SName, Pic, Quantity).getGoodP());
 		curSize = GoodArray.size();
 		if (curSize == 0) {
 			maxPage = curSize + 1;
@@ -407,9 +407,9 @@ public class reserveF {
 		panel_1_1.add(DownLabel);
 
 		// add to Spanel
-		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", "義美全糖豆漿.png", 4);
-		addGood("義", "政治", "義美全糖豆漿.jpg", "義美全糖豆漿.png", 5);
-		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", "義美全糖豆漿.png", 5);
+		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", 4);
+		addGood("義", "政治", "義美全糖豆漿.jpg", 5);
+		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", 5);
 		System.out.println("curSize " + curSize + " maxP: " + maxPage + " curPage: " + curPage);
 
 		showPage();

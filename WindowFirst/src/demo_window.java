@@ -112,6 +112,12 @@ public class demo_window {
 				//show QRcode
 //				QRcode codeframe=new QRcode();
 //				codeframe.QRframe.setVisible(true);
+				try {
+					prebuy=prebuy=new Prebuy(Cid);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				prebuy.resF.reserveframe.setVisible(true);
 				Accountframe.setVisible(false);
 				

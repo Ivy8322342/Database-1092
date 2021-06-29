@@ -31,9 +31,10 @@ public class GoodP extends JPanel {
 	int Quantity;
 	 dialogFram dwindow;
 	 
-	 public GoodP(String GoodName,String StoreName,String Pic,String QRcode,int Quantity){
+	 public GoodP(String GoodName,String StoreName,String Pic,int Quantity){
 		 this.Pic=Pic;
-		this.QRcode=QRcode;
+		 //我先不用QRcode因為我怕來不及用
+//		this.QRcode=QRcode;
 		this.GoodName=GoodName;
 		this.StoreName=StoreName;
 		this.Quantity=Quantity;
@@ -234,7 +235,7 @@ public class GoodP extends JPanel {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GoodP gg=new GoodP("豆漿","政大","鮪魚飯糰.jpg","11111",8);
+		GoodP gg=new GoodP("豆漿","政大","鮪魚飯糰.jpg",8);
 		JPanel p=gg.getGoodP();
 		gg.setBounds(14, 10, 394, 143);
 JFrame j=new JFrame();

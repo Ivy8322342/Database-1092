@@ -56,10 +56,62 @@ public class PreBuy_Back //prebuy «áºÝ
   return infoArrl;
  }
  
- public static void main(String[]args) throws SQLException {
-	 PreBuy_Back pre=new PreBuy_Back("ivy2046");
+ //find GoodP ­n¯À:product id, cid,branch name,quantity,pic
+ public String findGoodPCom(String cid,int pid,String bN) throws SQLException {
+	 String Info="";
+	 Connection conn = null;
+	  ResultSet result = null;
+	  
+	  try 
+	  {
+	   conn = connection_sql.getConnection();
+	   PreparedStatement stat = conn.prepareStatement("SELECT Product.product_name,Product.Picture,prebuy.quantity "
+	   		+ "from product,prebuy "
+	   		+ "where prebuy.Product_id=product.product_id"
+	   		+ " And product.product_ID=?"
+	   		+ " And customer_id=?");
+	   stat.setInt(1,pid);
+	   stat.setString(2, cid);
 	 
-	 pre.displayPrebuyStr();
+	   result = stat.executeQuery();
+	   while(result.next()) {
+		   String PName=result.getString("Product_Name");
+		   int Quantity=result.getInt("PREBUY.Quantity");
+		   String pic=result.getString("picture");
+		   
+		   Info= PName+","+Quantity+","+"/img/"+pic+","+bN;
+		   
+		   ///////////////§ìÂÎ¥Î
+		   System.out.println("goodpcom--------------------\n"+Info);
+		   ////////////////////////////
+		 
+	   }
+	   //////////////////////
+	   System.out.println("=======================\n");
+	  }
+	  
+	  finally 
+	  {
+	   conn.close();
+	  }
+	  
+	 
+	 
+	 return Info;
+	 
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ public static void main(String[]args) throws SQLException {
+	 PreBuy_Back pre=new PreBuy_Back("ivy1");
+	 
+	 pre.findGoodPCom("ivy1",4,"aa");
  }
  
 }

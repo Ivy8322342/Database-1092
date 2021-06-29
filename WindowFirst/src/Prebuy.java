@@ -22,8 +22,9 @@ import javax.swing.UIManager;
 import javax.swing.JTabbedPane;
 
 public class Prebuy {
+	ArrayList<String>Arrl;
 	ArrayList<GoodP>UpArrl;
-	ArrayList<GoodP>downArrlArrayList;
+	ArrayList<GoodP>DownArrl;
 	reserveF resF;
 	demo_window window;
 	 Search search1;
@@ -76,6 +77,9 @@ public class Prebuy {
   */
  public Prebuy(String cid) throws SQLException {
 	 this.cid=cid;
+	 Arrl=new ArrayList<String>();
+	 UpArrl=new ArrayList<GoodP>();
+	 DownArrl=new ArrayList<GoodP>();
 	 prebuy_b=new PreBuy_Back(cid);
   initialize();
  }
@@ -559,7 +563,7 @@ public class Prebuy {
  
  public void upnewSearch() throws SQLException {
    int Product_ID=Integer.parseInt(upArrl.get(page-1).split(",")[5]);
-   search1=new Search(Product_ID,cid);
+   search1=new Search(Product_ID,cid,this);
    search1.frame.setVisible(true);
    this.frame.dispose();
    System.out.println("pID="+Product_ID);
@@ -568,7 +572,7 @@ public class Prebuy {
  public void downnewSearch() throws SQLException {
 	 if(downArrl.size()>=page) {
 	   int Product_ID=Integer.parseInt(downArrl.get(page-1).split(",")[5]);
-	   search2=new Search(Product_ID,cid);
+	   search2=new Search(Product_ID,cid,this);
 	   search2.frame.setVisible(true);
 	   this.frame.dispose();
 	   System.out.println("pID="+Product_ID);
@@ -576,6 +580,18 @@ public class Prebuy {
 	 }
  public void newdemo() throws SQLException {
 	 window = new demo_window(cid,this);
+ }
+ public boolean findRepeatOrder(String Cid,int Pid,String Nb) throws SQLException {
+	 boolean flag=false;
+	 String cpinfo=this.prebuy_b.findGoodPCom(Cid,Pid,Nb);
+	 for(String info:Arrl) {
+		 if(cpinfo.equals(info)) {
+			 flag=true;
+			 return flag;
+		 }
+	 }
+	 
+	 return flag;
  }
  
  
