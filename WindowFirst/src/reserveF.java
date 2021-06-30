@@ -54,6 +54,8 @@ public class reserveF {
 	JPanel UpperGood = null;
 	JPanel LowerGood = null;
 	dialogFram dwindow;
+	JPanel Uppanel = new JPanel();
+	JPanel Downpanel = new JPanel();
 	JLabel quan_1 = new JLabel("_");
 	JLabel quan_2 = new JLabel("_");
 	JLabel quan_3 = new JLabel("_");
@@ -74,15 +76,21 @@ public class reserveF {
 	int Product_ID;
 
 	// 與產品呈現有關的方法
-	public void addGood(String PName, String SName, String Pic, int Quantity) {
-		GoodArray.add(new GoodP(PName, SName, Pic, Quantity).getGoodP());
-		curSize = GoodArray.size();
-		if (curSize == 0) {
-			maxPage = curSize + 1;
-		}
-		maxPage = (curSize - 1) / 2 + 1;
-//	rePosition();
-		showPage();
+	public void addUpGood(String PName, String SName, String Pic, int Quantity) {
+		System.out.println("加完以之前UpArrl size="+prebuy.upArrl.size());
+		prebuy.UpArrl.add(new GoodP(PName, SName, Pic, Quantity,prebuy).getGoodP());
+		
+		System.out.println("加完以後UpArrl size="+prebuy.upArrl.size());
+		
+		
+	}
+	public void addDownGood(String PName, String SName, String Pic, int Quantity) {
+		System.out.println("加完以前DownArrl size="+prebuy.DownArrl.size());
+		prebuy.DownArrl.add(new GoodP(PName, SName, Pic, Quantity,prebuy).getGoodP());
+		
+		System.out.println("加完以後DownArrl size="+prebuy.DownArrl.size());
+		
+			
 	}
 
 	public void rePosition() {
@@ -104,9 +112,19 @@ public class reserveF {
 
 	// 剛開始的時候是呈現第一頁
 	public void showPage() {
+		if(prebuy.upArrl.size()>0) {
+		JPanel upP=prebuy.UpArrl.get(0);
+		Uppanel.add(upP);
+		upP.setVisible(true);
 		
+		}if(prebuy.downArrl.size()>0) {
+			JPanel downP=prebuy.DownArrl.get(0);
+			Downpanel.add(downP);
+			downP.setVisible(true);
+		}
 
 	}
+	
 
 	public void CloseCurrentPage() {
 
@@ -331,9 +349,9 @@ public class reserveF {
 		OutContantP.setBackground(new Color(250, 245, 172, 98));
 		scrollPane.setViewportView(OutContantP);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(275, 336, 106, 28);
-		panel_2.addMouseListener(new MouseAdapter() {
+		JPanel NextP_panel = new JPanel();
+		NextP_panel.setBounds(275, 336, 106, 28);
+		NextP_panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (curPage < maxPage) {
@@ -343,9 +361,9 @@ public class reserveF {
 			}
 		});
 		OutContantP.setLayout(null);
-		panel_2.setBackground(new Color(0, 0, 0));
-		OutContantP.add(panel_2);
-		panel_2.setLayout(null);
+		NextP_panel.setBackground(new Color(0, 0, 0));
+		OutContantP.add(NextP_panel);
+		NextP_panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("\u4E0B\u4E00\u9801");
 		lblNewLabel.addMouseListener(new MouseAdapter() {
@@ -356,63 +374,55 @@ public class reserveF {
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
 		lblNewLabel.setBounds(22, 0, 75, 25);
-		panel_2.add(lblNewLabel);
+		NextP_panel.add(lblNewLabel);
 
-		JPanel panel_2_1 = new JPanel();
-		panel_2_1.setBounds(70, 336, 106, 28);
-		panel_2_1.addMouseListener(new MouseAdapter() {
+		JPanel LastP_panel = new JPanel();
+		LastP_panel.setBounds(70, 336, 106, 28);
+		LastP_panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				lastPage();
 				PageLabel.setText(curPage + "/" + maxPage);
 			}
 		});
-		panel_2_1.setBackground(new Color(0, 0, 0));
-		OutContantP.add(panel_2_1);
-		panel_2_1.setLayout(null);
+		LastP_panel.setBackground(new Color(0, 0, 0));
+		OutContantP.add(LastP_panel);
+		LastP_panel.setLayout(null);
 
 		JLabel lblNewLabel_1 = new JLabel("\u4E0A\u4E00\u9801");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(21, 0, 75, 25);
-		panel_2_1.add(lblNewLabel_1);
+		LastP_panel.add(lblNewLabel_1);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(186, 336, 75, 28);
-		OutContantP.add(panel);
-		panel.setLayout(null);
+		JPanel Pagepanel = new JPanel();
+		Pagepanel.setBounds(186, 336, 75, 28);
+		OutContantP.add(Pagepanel);
+		Pagepanel.setLayout(null);
 		PageLabel = new JLabel("\u9801\u6578");
 		PageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		PageLabel.setBounds(10, 0, 55, 28);
-		panel.add(PageLabel);
+		Pagepanel.add(PageLabel);
 
 		PageLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 10, 414, 139);
-		OutContantP.add(panel_1);
-		panel_1.setLayout(null);
 		
-		JLabel UpLabel = new JLabel("");
-		UpLabel.setBounds(10, 10, 116, 116);
-		panel_1.add(UpLabel);
+		Uppanel.setBounds(10, 10, 414, 139);
+		OutContantP.add(Uppanel);
+		Uppanel.setLayout(null);
 		
-		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setBounds(10, 172, 414, 139);
-		OutContantP.add(panel_1_1);
-		panel_1_1.setLayout(null);
 		
-		JLabel DownLabel = new JLabel("");
-		DownLabel.setBounds(10, 10, 116, 116);
-		panel_1_1.add(DownLabel);
+		Downpanel.setBounds(10, 172, 414, 139);
+		OutContantP.add(Downpanel);
+		Downpanel.setLayout(null);
 
 		// add to Spanel
-		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", 4);
-		addGood("義", "政治", "義美全糖豆漿.jpg", 5);
-		addGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", 5);
-		System.out.println("curSize " + curSize + " maxP: " + maxPage + " curPage: " + curPage);
+//		addUpGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", 4);
+//		addUpGood("義", "政治", "義美全糖豆漿.jpg", 5);
+//		addUpGood("義美全糖豆漿", "政治", "義美全糖豆漿.jpg", 5);
+//		System.out.println("curSize " + curSize + " maxP: " + maxPage + " curPage: " + curPage);
 
-		showPage();
+//		showPage();
 
 	}
 

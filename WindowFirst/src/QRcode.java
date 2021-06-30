@@ -16,17 +16,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class QRcode {
 	int Quantity;
 	String QRcode;
 	JFrame QRframe;
 	String StoreName;
+	GoodP goodp;
 	
 	/**
 	 * @wbp.nonvisual location=509,365
 	 */
 	private final JPanel BackPanel = new JPanel();
+	private JTextField TaketextField;
 
 	/**
 	 * Launch the application.
@@ -35,7 +39,7 @@ public class QRcode {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QRcode window = new QRcode("政興",11,"義美全糖豆漿.png");
+					QRcode window = new QRcode("政興",11,"義美全糖豆漿.png,new GoodP()");
 					window.QRframe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,10 +51,11 @@ public class QRcode {
 	/**
 	 * Create the application.
 	 */
-	public QRcode(String StoreName,int Quantity,String QRcode) {
+	public QRcode(String StoreName,int Quantity,String QRcode,GoodP goodp) {
 		this.StoreName=StoreName;
 		this.Quantity=Quantity;
 		this.QRcode=QRcode;
+		this.goodp=goodp;
 		
 		initialize();
 	}
@@ -92,68 +97,6 @@ public class QRcode {
 		QRframe.getContentPane().add(MainPanel);
 		MainPanel.setLayout(null);
 		
-		JPanel FooterPanel = new JPanel();
-		FooterPanel.setBounds(0, 380, 436, 81);
-		FooterPanel.setBackground(new Color(224, 255, 255));
-		MainPanel.add(FooterPanel);
-		FooterPanel.setLayout(null);
-		
-		JLabel TimeLabel=new JLabel("");
-		TimeLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ReserveFrame reframe=new ReserveFrame();
-				reframe.reserveframe.setVisible(true);
-				QRframe.setVisible(false);
-				
-			}
-			
-		});
-		
-		TimeLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/time.png")));
-		TimeLabel.setBounds(33, 10, 68, 61);
-		FooterPanel.add(TimeLabel);
-		
-		JLabel SearchLabel = new JLabel("New label");
-		SearchLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Search swindow=new Search();
-				swindow.frame.setVisible(true);
-				QRframe.setVisible(false);
-			}
-		});
-		SearchLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/search.png")));
-		SearchLabel.setBounds(234, 10, 68, 61);
-		FooterPanel.add(SearchLabel);
-		
-		JLabel AccountLabel = new JLabel("New label");
-		AccountLabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				demo_window window = new demo_window();
-				window.Accountframe.setVisible(true);
-				QRframe.setVisible(false);
-				
-			}
-			
-		});
-		AccountLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/account2.png")));
-		AccountLabel.setBounds(336, 10, 68, 61);
-		FooterPanel.add(AccountLabel);
-		
-		JLabel BagLabel = new JLabel("New label");
-		BagLabel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				Prebuy pwindow=new Prebuy();
-				pwindow.frame.setVisible(true);
-				QRframe.setVisible(false);
-			}
-		});
-		BagLabel.setIcon(new ImageIcon(demo_window.class.getResource("/img/bag1.png")));
-		BagLabel.setBounds(132, 10, 68, 61);
-		FooterPanel.add(BagLabel);
-		
 		JPanel ShowPanel = new JPanel();
 		ShowPanel.setBounds(62, 22, 300, 265);
 		ShowPanel.setBackground(new Color(255, 235, 205));
@@ -183,11 +126,13 @@ public class QRcode {
 		        TimerTask  task = new TimerTask (){
 		         public void run() {
 		        	 off.sety();
-		        	 if(off.gety()>0) {
+		        	 if(off.gety()>=0) {
 		        			
 		        	      R_BackOffLabel.setText(""+off.gety()+" s");
 		        		 }else {
-		        		 timer.cancel();}
+		        		 timer.cancel();
+		        		 QRframe.dispose();
+		        		 goodp.disposeP();}
 		           }
 		        };
 				timer.schedule(task,1000L,1000L);
@@ -237,17 +182,45 @@ public class QRcode {
 		CanclePanel.add(CancleLabel);
 		
 		JLabel lblNewLabel = new JLabel("剩餘數量:");
-		lblNewLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
 		lblNewLabel.setBounds(129, 296, 80, 23);
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
 		MainPanel.add(lblNewLabel);
 		
 		JLabel Quantity_Label = new JLabel("");
-		Quantity_Label.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
 		Quantity_Label.setBounds(241, 297, 58, 23);
+		Quantity_Label.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
 		Quantity_Label.setText(""+Quantity);
 		MainPanel.add(Quantity_Label);
 		
-		FooterPanel.setVisible(false);
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(160, 82, 45));
+		panel.setBounds(0, 396, 436, 65);
+		MainPanel.add(panel);
+		panel.setLayout(null);
+		
+		JButton finishButton = new JButton("完成取貨");
+		finishButton.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+		finishButton.setBounds(316, 10, 110, 45);
+		panel.add(finishButton);
+		
+		TaketextField = new JTextField();
+		TaketextField.setBounds(177, 10, 117, 45);
+		panel.add(TaketextField);
+		TaketextField.setColumns(10);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(165, 42, 42));
+		panel_1.setForeground(new Color(240, 248, 255));
+		panel_1.setBounds(10, 10, 158, 45);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("輸入取貨數量:");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("微軟正黑體", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(0, 0, 148, 45);
+		panel_1.add(lblNewLabel_1);
 		
 		
 		

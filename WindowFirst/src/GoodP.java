@@ -18,7 +18,8 @@ import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 
 public class GoodP extends JPanel {
-
+	
+	Prebuy prebuy;
 	JPanel Good;
 	Timer timer;
 	QRcode QRobj;
@@ -31,13 +32,14 @@ public class GoodP extends JPanel {
 	int Quantity;
 	 dialogFram dwindow;
 	 
-	 public GoodP(String GoodName,String StoreName,String Pic,int Quantity){
+	 public GoodP(String GoodName,String StoreName,String Pic,int Quantity,Prebuy prebuy){
 		 this.Pic=Pic;
 		 //我先不用QRcode因為我怕來不及用
 //		this.QRcode=QRcode;
 		this.GoodName=GoodName;
 		this.StoreName=StoreName;
 		this.Quantity=Quantity;
+		this.prebuy=prebuy;
 
 	 }
 	 //完成取貨
@@ -56,7 +58,8 @@ public class GoodP extends JPanel {
 		Good.setBackground(new Color(255, 255, 204));
 		
 //		if(th%2==1) {
-	Good.setBounds(14, 10, 394, 143);
+		
+			Good.setBounds(14, 10, 394, 143);
 //		else {
 //			Good.setBounds(14, 172, 394, 143);
 //		}
@@ -64,7 +67,8 @@ public class GoodP extends JPanel {
 		Good.setLayout(null);
 		
 		JLabel IconLabel = new JLabel("");
-		IconLabel.setIcon(new ImageIcon(ReserveFrame.class.getResource("img/"+Pic)));
+		IconLabel.setIcon(new ImageIcon(ReserveFrame.class.getResource(""+Pic)));
+		System.out.println(Pic);
 		IconLabel.setBounds(10, 10, 134, 123);
 		Good.add(IconLabel);
 		
@@ -112,7 +116,7 @@ public class GoodP extends JPanel {
         };
 		timer.schedule(task,1000L,1000L);
 
-		 QRobj = new QRcode(StoreName,Quantity,QRcode);
+		 QRobj = new QRcode(StoreName,Quantity,QRcode,this);
 		
 		
 		
@@ -228,6 +232,7 @@ public class GoodP extends JPanel {
 		
 	public void disposeP(){
 		this.Good.setVisible(false);
+		prebuy.removefromArr(GoodName,Quantity,Pic,StoreName);
 	}
 	
 	

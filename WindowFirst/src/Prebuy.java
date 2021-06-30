@@ -23,8 +23,8 @@ import javax.swing.JTabbedPane;
 
 public class Prebuy {
 	ArrayList<String>Arrl;
-	ArrayList<GoodP>UpArrl;
-	ArrayList<GoodP>DownArrl;
+	ArrayList<JPanel>UpArrl;
+	ArrayList<JPanel>DownArrl;
 	reserveF resF;
 	demo_window window;
 	 Search search1;
@@ -50,9 +50,10 @@ public class Prebuy {
  JLabel lblNewLabel = new JLabel("\u9801\u6578");
  JPanel buyPanel_1 = new JPanel();
  JPanel buyPanel_2 = new JPanel();
+ //與Search連接有關
  ArrayList<String>upArrl=new ArrayList<String>();
  ArrayList<String>downArrl=new ArrayList <String>();
- // cid 要不要從Login get?之後再改好了
+ 
  
  
  /**
@@ -78,8 +79,8 @@ public class Prebuy {
  public Prebuy(String cid) throws SQLException {
 	 this.cid=cid;
 	 Arrl=new ArrayList<String>();
-	 UpArrl=new ArrayList<GoodP>();
-	 DownArrl=new ArrayList<GoodP>();
+	 UpArrl=new ArrayList<JPanel>();
+	 DownArrl=new ArrayList<JPanel>();
 	 prebuy_b=new PreBuy_Back(cid);
   initialize();
  }
@@ -89,6 +90,7 @@ public class Prebuy {
  * @throws SQLException 
   */
  private void initialize() throws SQLException {
+	
   resF=new reserveF(this);
   resF.reserveframe.setVisible(false);
   page = 1;
@@ -594,6 +596,44 @@ public class Prebuy {
 	 return flag;
  }
  
+ public void AddDistribute(){
+		if(Arrl.size()>0) {
+		if(Arrl.size()%2==1) {
+			String[]s= Arrl.get(Arrl.size()-1).split(",");
+			System.out.println("現在要加入"+Arrl.get(Arrl.size()-1)+"資料的panel 到UpArrl");
+			 System.out.println("UpArrl size在Adddis 的 addUpGood 之前="+UpArrl.size());
+			
+			String pN=s[0];
+			int Quantity=Integer.parseInt(s[1]);
+			String pic=s[2];
+			String BN=s[3];
+			
+			
+			resF.addUpGood(pN,BN,pic,Quantity);
+		}else if(Arrl.size()%2==0) {
+			String[]s= Arrl.get(Arrl.size()-1).split(",");
+			System.out.println("現在要加入"+Arrl.get(Arrl.size()-1)+"資料的panel 到DownArrl");
+			String pN=s[0];
+			int Quantity=Integer.parseInt(s[1]);
+			String pic=s[2];
+			String BN=s[3];
+			resF.addDownGood(pN,BN,pic,Quantity);
+		}
+		}
+	}
+ 
+ public void removefromArr(String GName,int Q,String pic,String BN) {
+	 String cpInfo=GName+","+Q+","+pic+","+BN;
+	 for(String cp:Arrl) {
+		 if(cpInfo.equals(cp)) {
+			Arrl.remove(cp);
+			 System.out.println("移除 "+cp+" 自取或列表中"+",Arrl size 現在是"+Arrl.size());
+			 return;
+		 }else {
+			 System.out.println("出錯");
+		 }
+	 }
+ }
  
  
  

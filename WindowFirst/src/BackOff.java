@@ -2,7 +2,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class BackOff {
-	int y=600;
+	int y=10;
 	public void sety() {
 		 y=y-1;
 	}

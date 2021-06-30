@@ -86,6 +86,7 @@ public class Search {
  * @throws SQLException 
   */
  private void initialize() throws SQLException {
+	 System.out.println("UpArrl size 在search ini="+prebuy.UpArrl.size());
 //prebuy=new Prebuy(Cid);
 prebuy.frame.setVisible(false);
   page = 1;
@@ -122,6 +123,7 @@ prebuy.frame.setVisible(false);
   		if(branchLabel_3.getText().length()>=2&&!numLabel_3.getText().trim().equals("0")) {
   		try {
 			if(prebuy.findRepeatOrder(Cid, Product_ID, branchLabel_3.getText())==false) {
+				 System.out.println("UpArrl size searchP3 on click  ini="+prebuy.UpArrl.size());
 			JFrame f=new JFrame();
 			JDialog d=new JDialog(f,"即將預約取貨",true);
 			d.setBounds(170, 222, 315, 200);
@@ -139,6 +141,23 @@ prebuy.frame.setVisible(false);
 			            try {
 							String info=prebuy.prebuy_b.findGoodPCom(Cid, Product_ID, branchLabel_3.getText());
 							prebuy.Arrl.add(info);
+							String[]s=info.split(",");
+							String pN=s[0];
+							int Q=Integer.parseInt(s[1]);
+							String pic=s[2];
+							String BN=s[3];
+							if(prebuy.Arrl.size()==1) {
+								JPanel upP=new GoodP(pN, BN, pic, Q,prebuy).getGoodP();
+								prebuy.resF.Uppanel.add(upP);
+								upP.setVisible(true);
+							}else if(prebuy.Arrl.size()==2) {
+								JPanel downP=new GoodP(pN, BN, pic, Q,prebuy).getGoodP();
+								prebuy.resF.Downpanel.add(downP);
+								downP.setVisible(true);
+							}else {
+								System.out.println("超過預約上限");
+							}
+						
 							System.out.println("prebuy.Arrl size:"+prebuy.Arrl.size());
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -207,6 +226,23 @@ prebuy.frame.setVisible(false);
 			            try {
 							String info=prebuy.prebuy_b.findGoodPCom(Cid, Product_ID, branchLabel_2.getText());
 							prebuy.Arrl.add(info);
+							String[]s=info.split(",");
+							String pN=s[0];
+							int Q=Integer.parseInt(s[1]);
+							String pic=s[2];
+							String BN=s[3];
+							if(prebuy.Arrl.size()==1) {
+								JPanel upP=new GoodP(pN, BN, pic, Q,prebuy).getGoodP();
+								prebuy.resF.Uppanel.add(upP);
+								upP.setVisible(true);
+							}else if(prebuy.Arrl.size()==2) {
+								JPanel downP=new GoodP(pN, BN, pic, Q,prebuy).getGoodP();
+								prebuy.resF.Downpanel.add(downP);
+								downP.setVisible(true);
+							}else {
+								System.out.println("超過預約上限");
+							}
+						
 							System.out.println("prebuy.Arrl size:"+prebuy.Arrl.size());
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -309,6 +345,8 @@ prebuy.frame.setVisible(false);
   searchPanel_1.addMouseListener(new MouseAdapter() {
   	@Override
   	public void mouseClicked(MouseEvent e) {
+  		 System.out.println("UpArrl size searchP1 on click  ini="+prebuy.UpArrl.size());
+		
   		if(branchLabel_1.getText().length()>=2&&!numLabel_1.getText().trim().equals("0")) {
   		try {
 			if(prebuy.findRepeatOrder(Cid, Product_ID, branchLabel_1.getText())==false) {
@@ -329,6 +367,23 @@ prebuy.frame.setVisible(false);
 			            try {
 							String info=prebuy.prebuy_b.findGoodPCom(Cid, Product_ID, branchLabel_1.getText());
 							prebuy.Arrl.add(info);
+							String[]s=info.split(",");
+							String pN=s[0];
+							int Q=Integer.parseInt(s[1]);
+							String pic=s[2];
+							String BN=s[3];
+							if(prebuy.Arrl.size()==1) {
+								JPanel upP=new GoodP(pN, BN, pic, Q,prebuy).getGoodP();
+								prebuy.resF.Uppanel.add(upP);
+								upP.setVisible(true);
+							}else if(prebuy.Arrl.size()==2) {
+								JPanel downP=new GoodP(pN, BN, pic, Q,prebuy).getGoodP();
+								prebuy.resF.Downpanel.add(downP);
+								downP.setVisible(true);
+							}else {
+								System.out.println("超過預約上限");
+							}
+						
 							System.out.println("prebuy.Arrl size:"+prebuy.Arrl.size());
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -645,5 +700,6 @@ prebuy.frame.setVisible(false);
 //	quanLabel_2_1.setText(pname+"剩餘數量:");
 	frame.setTitle(pname);
  }
+ 
  
  }
